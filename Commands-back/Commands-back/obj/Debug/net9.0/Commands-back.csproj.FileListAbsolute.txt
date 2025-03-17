@@ -194,3 +194,4 @@
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.MvcApplicationPartsAssemblyInfo.cs
+/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.sourcelink.json
