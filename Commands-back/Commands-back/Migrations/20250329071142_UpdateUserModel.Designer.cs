@@ -3,6 +3,7 @@ using System;
 using Commands_back.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Commands_back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250329071142_UpdateUserModel")]
+    partial class UpdateUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +73,7 @@ namespace Commands_back.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -81,12 +85,15 @@ namespace Commands_back.Migrations
                         .HasColumnType("text");
 
                     b.PrimitiveCollection<Guid[]>("ProjectsId")
+                        .IsRequired()
                         .HasColumnType("uuid[]");
 
                     b.PrimitiveCollection<Guid[]>("RolesId")
+                        .IsRequired()
                         .HasColumnType("uuid[]");
 
                     b.Property<string>("UserIconUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserName")

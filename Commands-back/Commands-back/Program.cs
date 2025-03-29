@@ -1,9 +1,14 @@
 using Commands_back.Data;
+using Commands_back.Repositories;
+using Commands_back.Services;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 // Добавляем сервисы API и Swagger
 builder.Services.AddControllers(); // регистрирует сервисы для api-контроллеров
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddEndpointsApiExplorer(); // сканирует контроллеры и создает описание api в свагере
 builder.Services.AddSwaggerGen(); // добавляет свагер
 
