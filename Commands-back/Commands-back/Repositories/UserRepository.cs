@@ -10,11 +10,11 @@ public interface IUserRepository
     Guid CreatUser(string name, string email, string password, string description = "", Guid[] rolesId = null,
         string pathIcon = null);
 
-    void DeleteUser(Guid id); 
+    void DeleteUser(Guid id);
 
-    void UpdateUserInfo(Guid id, string name=null, string email=null, string password=null, string description = "", Guid[] rolesId = null,
+    void UpdateUserInfo(Guid id, string name = null, string email = null, string password = null,
+        string description = "", Guid[] rolesId = null,
         string pathIcon = null);
-    
 }
 public class UserRepository(AppDbContext context) : IUserRepository
 {
