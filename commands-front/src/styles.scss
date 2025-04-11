@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    background: rgb(26, 21, 32);
+body {
+  background: rgb(26, 21, 32);
+  .brand__logo {
+    color: rgb(255, 255, 255);
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 20px;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }
