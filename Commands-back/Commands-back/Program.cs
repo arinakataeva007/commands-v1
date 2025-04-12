@@ -20,9 +20,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 var app = builder.Build(); // app - готовое веб-приложение 
-
+app.UseCors();
 app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseRouting(); // вкл систему маршрутизации
 // ReSharper disable once InvalidXmlDocComment

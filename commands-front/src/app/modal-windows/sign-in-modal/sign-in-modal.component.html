@@ -1,1 +1,45 @@
-<p>sign-in-modal works!</p>
+<section class="logIn-modal">
+  <div class="logIn-nav">
+    <div class="nav-logo">
+      <p class="nav-logo__parag">Commands</p>
+      <p class="nav-logo__desc">from idea to goal</p>
+    </div>
+    <div class="nav-buttons">
+      <p class="nav-buttons__desc">Уже есть аккаунт?</p>
+      <button class="signIn-btn" (click)="goToLoginIn()">войти</button>
+    </div>
+  </div>
+  <h1 class="logIn-title">Регистрация</h1>
+  <form class="auth-form" [formGroup]="authForm">
+    <div class="auth-form__container">
+      <input class="auth-form__container__formControll" placeholder="Email" [formControlName]="'email'" />
+      <img
+        class="auth-form__container__input-icon"
+        src="../../../assets/sobaca.svg"
+        width="34"
+        height="34"
+      />
+    </div>
+    <div class="auth-form__container">
+        <input class="auth-form__container__formControll" placeholder="Ваше имя" [formControlName]="'name'" />
+        <img
+          class="auth-form__container__input-icon"
+          src="../../../assets/user.svg"
+          width="34"
+          height="34"
+        />
+      </div>
+    <div class="auth-form__container">
+      <input class="auth-form__container__formControll" placeholder="Пароль" [formControlName]="'password'" />
+      <img
+        class="auth-form__container__input-icon"
+        src="../../../assets/lock.svg"
+        width="34"
+        height="34"
+      />
+    </div>
+  </form>
+  <div class="logIn-buttons">
+    <button class="auth-btn" (click)="onClickSubmitBtn()">ВХОД</button>
+  </div>
+</section>

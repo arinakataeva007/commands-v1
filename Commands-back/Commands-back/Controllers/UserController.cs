@@ -1,3 +1,4 @@
+using Commands_back.Models.ResponceModels;
 using Commands_back.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,14 +24,13 @@ namespace Commands_back.Controllers
             return Ok(user);
         }
         [HttpPost]
-        public IActionResult CreateUser(string name, string email, string password, string description = "",
-            Guid[] rolesId = null, string pathIcon = null)
+        public IActionResult CreateUser([FromBody] CreateUserResponce request)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Email))
             {
                 return BadRequest("Имя и Почта должны быть заполнены");
             }
-            var userId = _userService.CreatUser(name, email, password, description, rolesId, pathIcon);
+            var userId = _userService.CreatUser(request.Name, request.Email, request.Password, request.Description, request.RolesId, request.PathIcon);
             return CreatedAtAction(nameof(GetUserById), new { id = userId }, new { id = userId });
         }
 

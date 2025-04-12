@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
 })
 export class WelcomePageComponent {
   constructor(private router: Router){}
-  protected goToLogIn(){
-    this.router.navigate(['/logIn']);
+  protected async goToLogIn(){
+    await this.router.navigate(['/logIn']);
   }
-  protected goToSignIn(){
-    this.router.navigate(['/signIn']);
+  protected async goToSignIn(){
+    await this.router.navigate(['/signIn']);
   }
 }

@@ -10,3 +10,7 @@
   <div class="backdrop"></div>
   <app-log-in-modal></app-log-in-modal>
 </div>
+<div *ngIf="router.url === '/signIn'" class="modal-overlay">
+  <div class="backdrop"></div>
+  <app-sign-in-modal></app-sign-in-modal>
+</div>

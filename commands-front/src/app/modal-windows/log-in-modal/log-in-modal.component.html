@@ -5,14 +5,30 @@
       <p class="nav-logo__desc">from idea to goal</p>
     </div>
     <div class="nav-buttons">
-        <p class="nav-buttons__desc">Нет аккаунта?</p>
-        <button class="signIn-btn">регистрация</button>
+      <p class="nav-buttons__desc">Нет аккаунта?</p>
+      <button class="signIn-btn" (click)="goToSignIn()">регистрация</button>
     </div>
   </div>
   <h1 class="logIn-title">ВХОД</h1>
   <form class="auth-form">
-    <input class="auth-form__formControll" placeholder="Email" />
-    <input class="auth-form__formControll" placeholder="Пароль" />
+    <div class="auth-form__container">
+      <input class="auth-form__container__formControll" placeholder="Email" />
+      <img
+        class="auth-form__container__input-icon"
+        src="../../../assets/sobaca.svg"
+        width="34"
+        height="34"
+      />
+    </div>
+    <div class="auth-form__container">
+      <input class="auth-form__container__formControll" placeholder="Пароль" />
+      <img
+        class="auth-form__container__input-icon"
+        src="../../../assets/lock.svg"
+        width="34"
+        height="34"
+      />
+    </div>
   </form>
   <div class="logIn-buttons">
     <button class="auth-btn">ВХОД</button>
