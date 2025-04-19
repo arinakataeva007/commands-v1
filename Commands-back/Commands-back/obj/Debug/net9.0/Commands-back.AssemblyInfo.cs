@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Commands-back")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d22393e9e172d8c0b5ee97f9796efa5838b3b799")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34980ba2df2b42a95cdd94067f66e67ab2f9f3fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Commands-back")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Commands-back")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
