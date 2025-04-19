@@ -15,6 +15,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddEndpointsApiExplorer(); // сканирует контроллеры и создает описание api в свагере
 builder.Services.AddSwaggerGen(); // добавляет свагер
+builder.Services.AddSingleton<Commands_back.Services.PasswordHasher>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

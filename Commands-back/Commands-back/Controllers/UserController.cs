@@ -1,14 +1,16 @@
 using Commands_back.Models.ResponceModels;
 using Commands_back.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Commands_back.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController(IUserService userService) : ControllerBase
+    public class UserController(IUserService userService, PasswordHasher passwordHasher) : ControllerBase
     {
         private readonly IUserService _userService = userService;
+        private readonly PasswordHasher _hasher = passwordHasher;
 
         [HttpGet]
         public IActionResult GetAllUsers()
@@ -30,7 +32,9 @@ namespace Commands_back.Controllers
             {
                 return BadRequest("Имя и Почта должны быть заполнены");
             }
-            var userId = _userService.CreatUser(request.Name, request.Email, request.Password, request.Description, request.RolesId, request.PathIcon);
+            
+            var hashedPassword = _hasher.HashPassword(new Models.User{Password = request.Password, Email = request.Email,UserName = request.Name}, request.Password);
+            var userId = _userService.CreatUser(request.Name, request.Email, hashedPassword, request.Description, request.RolesId, request.PathIcon);
             return CreatedAtAction(nameof(GetUserById), new { id = userId }, new { id = userId });
         }
 
