@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IUser } from 'src/app/models/user-responce.models';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +9,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  userId!: string;
+  protected userId!: string;
+  protected userInfo!: IUser;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private authService: AuthorizationService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id_user')!;
-      // Здесь можно сразу загрузить данные пользователя
-      console.log('User ID:', this.userId);
-      // например: this.loadUserData(this.userId);
+      this.authService.getUser(this.userId).then(data=> {
+        this.userInfo = data;
+        console.log(data);
+      });
+      console.log('User ID:', this.userId, this.userInfo);
     });
   }
 }

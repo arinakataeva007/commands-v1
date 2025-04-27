@@ -10,24 +10,11 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
   templateUrl: './log-in-modal.component.html',
   styleUrls: ['./log-in-modal.component.scss'],
 })
-export class LogInModalComponent implements OnDestroy {
+export class LogInModalComponent {
   constructor(
     private authService: AuthorizationService,
     private router: Router,
-    private renderer: Renderer2,
-    private el: ElementRef,
-    private location: Location
   ) {
-    this.listenerClickFn = this.renderer.listen(
-      'document',
-      'mousedown',
-      (event) => {
-        const clickedInside = this.el.nativeElement.contains(event.target);
-        if (!clickedInside) {
-          this.location.back();
-        }
-      }
-    );
     this.authForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -36,10 +23,6 @@ export class LogInModalComponent implements OnDestroy {
 
   protected authForm: FormGroup;
 
-  ngOnDestroy(): void {
-    this.listenerClickFn();
-  }
-  private listenerClickFn = () => {};
 
   protected async goToSignIn() {
     await this.router.navigate(['/signIn']);
