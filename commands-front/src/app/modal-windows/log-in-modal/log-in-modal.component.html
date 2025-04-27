@@ -10,9 +10,9 @@
     </div>
   </div>
   <h1 class="logIn-title">ВХОД</h1>
-  <form class="auth-form">
+  <form class="auth-form" [formGroup]="authForm">
     <div class="auth-form__container">
-      <input class="auth-form__container__formControll" placeholder="Email" />
+      <input class="auth-form__container__formControll" placeholder="Email" [formControlName]="'email'" />
       <img
         class="auth-form__container__input-icon"
         src="../../../assets/sobaca.svg"
@@ -21,7 +21,7 @@
       />
     </div>
     <div class="auth-form__container">
-      <input class="auth-form__container__formControll" placeholder="Пароль" />
+      <input class="auth-form__container__formControll" placeholder="Пароль" [formControlName]="'password'" />
       <img
         class="auth-form__container__input-icon"
         src="../../../assets/lock.svg"
@@ -31,6 +31,6 @@
     </div>
   </form>
   <div class="logIn-buttons">
-    <button class="auth-btn">ВХОД</button>
+    <button class="auth-btn" (click)="onClickSubmitBtn()">ВХОД</button>
   </div>
 </section>

@@ -14,6 +14,8 @@ public interface IUserService
         string pathIcon = null);
     
     void DeleteUser(Guid id); 
+    Guid CheckUsernfo(string email, string passwrd);
+    User GetUserByEmail(string email);
 }
 public class UserService(IUserRepository userRepository): IUserService
 {
@@ -43,5 +45,15 @@ public class UserService(IUserRepository userRepository): IUserService
     public void DeleteUser(Guid id)
     {
         _userRepository.DeleteUser(id);
+    }
+    
+    public Guid CheckUsernfo(string email, string passwrd)
+    {
+        return _userRepository.CheckUsernfo(email, passwrd);
+    }
+
+    public User GetUserByEmail(string email)
+    {
+        return _userRepository.GetUserByEmail(email);
     }
 }

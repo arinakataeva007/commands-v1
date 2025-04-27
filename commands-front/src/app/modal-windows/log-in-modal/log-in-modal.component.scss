@@ -28,7 +28,7 @@
           min-width: 400px;
           &::placeholder {
             color: rgba(31, 0, 97, 0.3);
-            font-family: Lato;
+            
             font-size: 20px;
             font-weight: 400;
             line-height: 24px;
@@ -44,7 +44,7 @@
       .auth-btn {
         min-width: 300px;
         color: rgb(255, 255, 255);
-        font-family: Lato;
+        
         font-size: 20px;
         font-weight: 700;
         line-height: 24px;
@@ -66,7 +66,7 @@
       display: flex;
       justify-content: center;
       color: rgb(31, 0, 97);
-      font-family: Lato;
+      
       font-size: 36px;
       font-weight: 700;
       line-height: 43px;
@@ -85,7 +85,7 @@
         flex-direction: column;
         &__parag {
           color: rgb(31, 0, 97);
-          font-family: Lato;
+          
           font-size: 18px;
           font-weight: 800;
           text-align: center;
@@ -103,7 +103,7 @@
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          font-family: Lato;
+          
           font-size: 8px;
           font-weight: 500;
           letter-spacing: 0%;
@@ -120,7 +120,7 @@
         margin-left: 202px;
         &__desc {
           color: rgba(31, 0, 97, 0.7);
-          font-family: Lato;
+          
           font-size: 10px;
           font-weight: 400;
           line-height: 12px;
@@ -131,7 +131,7 @@
           border: 1px solid rgba(44, 3, 131, 0.7);
           border-radius: 30px;
           color: rgba(44, 3, 131, 0.7);
-          font-family: Lato;
+          
           font-size: 10px;
           font-weight: 400;
           line-height: 12px;

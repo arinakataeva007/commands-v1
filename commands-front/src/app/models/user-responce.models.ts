@@ -6,3 +6,8 @@ export interface ICreateUser{
     rolesId?: string;
     pathIcon?:string;
 }
+
+export interface ICheckser{
+    email: string;
+    password: string;
+}

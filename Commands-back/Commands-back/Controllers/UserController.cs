@@ -43,5 +43,23 @@ namespace Commands_back.Controllers
         {
             _userService.DeleteUser(id);
         }
+
+        [HttpPost("login")]
+        public IActionResult CheckUserInfo([FromBody] CheckUsernfoResponce request)
+        {
+            var user = _userService.GetUserByEmail(request.Email);
+            if (user == null)
+            {
+                return Unauthorized("Пользователь не найден");
+            }
+
+            var passwordValid = _hasher.VerifyPassword(user, request.Password);
+            if (!passwordValid)
+            {
+                return Unauthorized("Неверный пароль");
+            }
+
+            return Ok(new { uid = user.UserId });
+        }
     }
 }

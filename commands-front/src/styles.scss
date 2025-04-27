@@ -1,6 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../src/assets/fonts/font-face.scss';
 body {
   background: rgb(26, 21, 32);
+  *{
+    font-family: Rubik;
+  }
+ 
   .brand__logo {
     color: rgb(255, 255, 255);
     font-family: Lato;

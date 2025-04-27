@@ -1,15 +1,56 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ICheckser } from 'src/app/models/user-responce.models';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: 'app-log-in-modal',
   templateUrl: './log-in-modal.component.html',
-  styleUrls: ['./log-in-modal.component.scss']
+  styleUrls: ['./log-in-modal.component.scss'],
 })
-export class LogInModalComponent {
-  constructor(private router: Router){}
+export class LogInModalComponent implements OnDestroy {
+  constructor(
+    private authService: AuthorizationService,
+    private router: Router,
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private location: Location
+  ) {
+    this.listenerClickFn = this.renderer.listen(
+      'document',
+      'mousedown',
+      (event) => {
+        const clickedInside = this.el.nativeElement.contains(event.target);
+        if (!clickedInside) {
+          this.location.back();
+        }
+      }
+    );
+    this.authForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+    });
+  }
 
-  protected async goToSignIn(){
+  protected authForm: FormGroup;
+
+  ngOnDestroy(): void {
+    this.listenerClickFn();
+  }
+  private listenerClickFn = () => {};
+
+  protected async goToSignIn() {
     await this.router.navigate(['/signIn']);
+  }
+
+  protected async onClickSubmitBtn() {
+    const user: ICheckser = {
+      email: this.authForm.get('email')?.value,
+      password: this.authForm.get('password')?.value,
+    };
+    const responce = await this.authService.checkUser(user);
+    this.router.navigate(['/homepage', responce.uid]);
   }
 }

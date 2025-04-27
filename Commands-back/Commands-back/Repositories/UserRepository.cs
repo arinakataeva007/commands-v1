@@ -15,11 +15,14 @@ public interface IUserRepository
     void UpdateUserInfo(Guid id, string name = null, string email = null, string password = null,
         string description = "", Guid[] rolesId = null,
         string pathIcon = null);
+
+    Guid CheckUsernfo(string email, string passwrd);
+    
+    User GetUserByEmail(string email);
 }
 public class UserRepository(AppDbContext context) : IUserRepository
 {
     private readonly AppDbContext _context = context;
-
     public List<User> GetAllUsers()
     {
         return _context.Users.ToList();
@@ -74,5 +77,20 @@ public class UserRepository(AppDbContext context) : IUserRepository
 
         _context.Users.Remove(user);
         _context.SaveChanges();
+    }
+
+    public Guid CheckUsernfo(string email, string passwrd)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == passwrd);
+        if (user == null)
+        {
+            throw new InvalidOperationException($"Данные введен неверно");
+        }
+        return user.UserId;
+    }
+
+    public User GetUserByEmail(string email)
+    {
+        return _context.Users.FirstOrDefault(u => u.Email == email);
     }
 }

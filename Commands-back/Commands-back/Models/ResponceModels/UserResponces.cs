@@ -9,3 +9,8 @@ public class CreateUserResponce
     public Guid[] RolesId { get; set; } = [];
     public string PathIcon { get; set; } = "";
 }
+public class CheckUsernfoResponce
+{
+    public required string Email { get; set; }
+    public required string Password { get; set; }
+}
