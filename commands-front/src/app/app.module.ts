@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { AuthorizationModule } from './moduls/authorization.module';
 import { HomeComponent } from './pages/home/home.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomePageComponent,
     HomeComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

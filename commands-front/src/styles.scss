@@ -1,8 +1,13 @@
 @import '../src/assets/fonts/font-face.scss';
 body {
-  background: rgb(26, 21, 32);
+  app-welcome-page{
+    background: rgb(26, 21, 32);
+  }
+  background-repeat: no-repeat;
+  background-position: 20px 50px;
+  background-image: url("../src/assets/ellipse.svg"), url("../src/assets/ellipse1.svg");
   *{
-    font-family: Rubik;
+    font-family: Lato;
   }
  
   .brand__logo {

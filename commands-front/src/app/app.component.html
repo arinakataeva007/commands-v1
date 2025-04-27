@@ -5,7 +5,16 @@
     router.url === '/signIn'
   "
 ></app-welcome-page>
-<h3 class="brand__logo">created by peremennie</h3>
+<h3
+  *ngIf="
+    router.url === '/welcome' ||
+    router.url === '/logIn' ||
+    router.url === '/signIn'
+  "
+  class="brand__logo"
+>
+  created by peremennie
+</h3>
 <div *ngIf="router.url === '/logIn'" class="modal-overlay">
   <div class="backdrop" (click)="closeModal()"></div>
   <app-log-in-modal></app-log-in-modal>
@@ -15,4 +24,4 @@
   <app-sign-in-modal></app-sign-in-modal>
 </div>
 
-<router-outlet/>
+<router-outlet />

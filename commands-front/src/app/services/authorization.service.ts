@@ -23,9 +23,8 @@ export class AuthorizationService {
 
   public async getUser(userId:string){
     const responce = await firstValueFrom(
-      this.http.get<{user: IUser}>(`${this.apiUrl}/${userId}`)
+      this.http.get(`${this.apiUrl}/${userId}`)
     );
-    console.log(responce.user);
-    return responce.user;
+    return responce;
   }
 }

@@ -18,8 +18,8 @@ export class HomeComponent {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id_user')!;
       this.authService.getUser(this.userId).then(data=> {
-        this.userInfo = data;
-        console.log(data);
+        this.userInfo = data as IUser;
+        console.log("Data",data, this.userInfo);
       });
       console.log('User ID:', this.userId, this.userInfo);
     });

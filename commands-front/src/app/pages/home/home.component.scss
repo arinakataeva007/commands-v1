@@ -1,0 +1,31 @@
+:host {
+  app-navigation {
+    margin-bottom: 62px;
+  }
+  .home_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .section-back {
+      border: 1px solid red;
+      .profile {
+        width: 700px;
+      }
+      .posts {
+        width: 700px;
+      }
+      .early-look {
+        flex: 1;
+      }
+    }
+    .main__center-section {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 700px;
+      .section-back {
+        border: 1px solid red;
+      }
+    }
+  }
+}
