@@ -1,31 +1,40 @@
 <app-navigation></app-navigation>
 <main class="home_main">
-    <section class="main__center-section">
-        <div class="section-back main__center-section profile">
-            <div class="profile_img-container">
-                <img [src]="" class="profile__img">
+  <section class="main__center-section">
+    <div class="main-center__left">
+      <div class="section-back profile">
+        <div class="left-container-profile">
+          <div class="profile_img-container">
+            <img [src]="" class="profile__img" />
+          </div>
+          <div class="profile__info-container">
+            <h3 class="profile-title">ФАМИЛИЯ ИМЯ</h3>
+            <div class="info-container__desc">
+              <p class="desc-parag town">г. Москва</p>
+              <p class="desc-parag age">20 лет</p>
             </div>
-            <div class="profile__info-container">
-                <h3 class="profile-title">ФАМИЛИЯ ИМЯ</h3>
-                <div class="info-container__desc">
-                    <p class="desc-parag town ">г. Москва</p>
-                    <p class="desc-parag age ">20 лет</p>
-                </div>
-            </div>
-            <a [routerLink]="" class="profile__edit-btn">Редактировать</a>
+          </div>
         </div>
-        <div class="section-back main__center-section posts">
-            <h3 class="posts__title">Публикации</h3>
-            <div class="posts-gallery"></div>
-            <button class="posts__add-btn"><img src="../../../assets/add_white.svg"></button>
-        </div>
-        <div class="section-back main__center-section early-look">
-            <h3 class="early-look__title">недавно смотрели</h3>
-            <div class="early-look__posts-container"></div>
-        </div>
-    </section>
-    <section class="section-back footer__section">
-        <h3 class="footer__section title">Отзывы</h3>
-        <div class="footer__section container"></div>
-    </section>
+        <a [routerLink]="" class="profile__edit-btn">Редактировать</a>
+      </div>
+      <div class="section-back posts">
+        <h3 class="posts__title">Публикации</h3>
+        <div class="posts-gallery"></div>
+        <button class="posts__add-btn">
+          <img src="../../../assets/add_white.svg" width="49px" height="49px"/>
+        </button>
+      </div>
+    </div>
+
+    <div class="section-back early-look">
+      <h3 class="early-look__title">недавно смотрели</h3>
+      <div class="early-look__posts-container"></div>
+    </div>
+  </section>
+
+  <!-- TODO: скрыто до реализации функцинала на бекенде -->
+  <!-- <section class="section-back footer__section">
+    <h3 class="footer__section title">Отзывы</h3>
+    <div class="footer__section container"></div>
+  </section> -->
 </main>
