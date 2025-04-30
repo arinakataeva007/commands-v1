@@ -1,10 +1,12 @@
 export interface IUser{
-    name: string;
+    userName: string;
+    userId?: string;
     email: string;
     password: string;
     description?:string;
     rolesId?: string;
-    pathIcon?:string;
+    userIconUrl?:string;
+    projectsId?: string[],
 }
 
 export interface ICheckser{

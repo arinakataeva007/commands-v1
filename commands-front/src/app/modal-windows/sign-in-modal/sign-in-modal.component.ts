@@ -25,7 +25,7 @@ export class SignInModalComponent {
 
   protected async onClickSubmitBtn(){
     const user: IUser = {
-      name: this.authForm.get('name')?.value,
+      userName: this.authForm.get('name')?.value,
       email: this.authForm.get('email')?.value,
       password: this.authForm.get('password')?.value
     }

@@ -5,13 +5,14 @@
       <div class="section-back profile">
         <div class="left-container-profile">
           <div class="profile_img-container">
-            <img [src]="" class="profile__img" />
+            <img [src]="userInfo.userIconUrl" class="profile__img" width="200px" height="200px" />
           </div>
           <div class="profile__info-container">
-            <h3 class="profile-title">ФАМИЛИЯ ИМЯ</h3>
+            <h3 class="profile-title">{{userInfo.userName}}</h3>
             <div class="info-container__desc">
-              <p class="desc-parag town">г. Москва</p>
-              <p class="desc-parag age">20 лет</p>
+                {{userInfo.description}}
+              <!-- <p class="desc-parag town">г. Москва</p>
+              <p class="desc-parag age">20 лет</p> -->
             </div>
           </div>
         </div>
