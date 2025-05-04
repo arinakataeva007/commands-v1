@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from 'src/app/models/user-responce.models';
+import { IProjectRequest } from 'src/app/models/request/project-request.models';
+import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
@@ -39,5 +40,9 @@ export class HomeComponent {
 
   protected closeModal(){
     this.addingProject = false;
+  }
+
+  protected saveProject(event: IProjectRequest){
+    
   }
 }

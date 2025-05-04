@@ -8,18 +8,23 @@
   </nav>
   <main class="add-project__main">
     <h1 class="main__title">Создать проект</h1>
-    <form class="main__form">
-        <input class="name-project-controll" placeholder="Название проекта">
-        <textarea class="descreption-controll" placeholder="Описание"></textarea>
-        <select class="role-select"></select>
-        <select class="role-select"></select>
-        <div class="datetime-container">
+    <form [formGroup]="projectForm" class="main__form">
+        <input class="name-project-controll" placeholder="Название проекта" [formControlName]="'name'" >
+        <textarea class="descreption-controll" placeholder="Описание" [formControlName]="'descreption'" ></textarea>
+        <select class="role-select" [formControlName]="'authorRole'">
+          <option [value]="'Developer'">Developer</option>
+        </select>
+        <select class="role-select" [formControlName]="'otherRoles'">
+          <option [value]="'Developer'">Developer</option>
+        </select>
+        <!-- TODO: скрыто до реализации бэкенда -->
+        <!-- <div class="datetime-container">
             <h3 class="datetime-container__title">Сроки проекта</h3>
             <div class="field-date-container">
                 <input class="date-controll start" placeholder="Дата начала">
                 <input class="date-controll end" placeholder="Дата начала">
             </div>
-        </div>
+        </div> -->
     </form>
     <button class="create-btn" (click)="onSaveProjectCick()">создать</button>
   </main>

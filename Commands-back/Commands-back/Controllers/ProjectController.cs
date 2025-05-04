@@ -33,9 +33,9 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     [HttpPost]
     public IActionResult CreateProject([FromBody] CreateProjectResponce request)
     {
-        var id = _projectService.CreatProject(request.Author, request.ProjectName, request.ProjectDescreption, request.ProjectMembers);
+        var id = _projectService.CreatProject(request.Author, request.ProjectName, request.ProjectDescreption, request.ProjectMembers, request.ProjectRoles);
         return Ok(id);
-    }
+    } 
 
     [HttpDelete("{id}")]
     public void DeleteProject(Guid id)

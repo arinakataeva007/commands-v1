@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ICheckser } from 'src/app/models/user-responce.models';
+import { ICheckser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({

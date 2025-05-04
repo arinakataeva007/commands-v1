@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICheckser, IUser } from '../models/user-responce.models';
+import { ICheckser, IUser } from '../models/responce/user-responce.models';
 import { firstValueFrom } from 'rxjs';
 @Injectable()
 export class AuthorizationService {

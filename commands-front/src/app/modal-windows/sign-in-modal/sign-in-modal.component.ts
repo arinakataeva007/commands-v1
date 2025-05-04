@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, Renderer2 
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IUser } from 'src/app/models/user-responce.models';
+import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({

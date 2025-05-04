@@ -6,7 +6,7 @@ public interface IProjectRepository
 {
     List<Project> GetAllProjects();
     Project GetProjectById(Guid id);
-    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers);
+    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[]? projectRoles);
     void DeleteProject(Guid id);
     void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers);
 }
@@ -23,7 +23,7 @@ public class ProjectRepository(AppDbContext context) : IProjectRepository
         return _context.Projects.FirstOrDefault(project => project.Id == id) ?? throw new InvalidOperationException();
     }
 
-    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers)
+    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[] projectRoles)
     {
         var newProject = new Project
         {
@@ -32,6 +32,7 @@ public class ProjectRepository(AppDbContext context) : IProjectRepository
             ProjectDescription = projectDescription,
             ProjectMembersId = projectMembers,
             Author = author,
+            ProjectRoles = projectRoles
         };
         _context.Projects.Add(newProject);
         _context.SaveChanges();

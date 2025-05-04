@@ -8,6 +8,7 @@ import { AuthorizationModule } from './moduls/authorization.module';
 import { HomeComponent } from './pages/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-project-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

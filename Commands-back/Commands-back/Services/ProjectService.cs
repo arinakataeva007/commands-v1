@@ -6,7 +6,7 @@ public interface IProjectService
 {
     List<Project> GetAllProjects();
     Project GetProjectById(Guid id);
-    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers);
+    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[]? projectRoles);
     void DeleteProject(Guid id);
     void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers);
 }
@@ -23,9 +23,9 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         return _prRepository.GetProjectById(id);
     }
 
-    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers)
+    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[] projectRoles)
     {
-        return _prRepository.CreatProject(author, projectName, projectDescription, projectMembers);
+        return _prRepository.CreatProject(author, projectName, projectDescription, projectMembers, projectRoles);
     }
 
     public void DeleteProject(Guid id)
