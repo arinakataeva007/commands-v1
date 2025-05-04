@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-project-modal',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AddProjectModalComponent {
 
+  @Output() onSaveProject = new EventEmitter();
+
+  constructor(){}
+
+  protected onSaveProjectCick(){
+
+  }
 }
