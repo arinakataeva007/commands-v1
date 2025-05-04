@@ -1,4 +1,4 @@
-<app-navigation></app-navigation>
+<app-navigation (onAddClick)="addProject()"></app-navigation>
 <main class="home_main">
   <section class="main__center-section">
     <div class="main-center__left">
@@ -11,8 +11,6 @@
             <h3 class="profile-title">{{userInfo.userName}}</h3>
             <div class="info-container__desc">
                 {{userInfo.description}}
-              <!-- <p class="desc-parag town">г. Москва</p>
-              <p class="desc-parag age">20 лет</p> -->
             </div>
           </div>
         </div>
@@ -39,3 +37,9 @@
     <div class="footer__section container"></div>
   </section> -->
 </main>
+<div *ngIf="addingProject === true" class="modal-overlay">
+  <div class="backdrop" (click)="closeModal()">
+    <app-add-project-modal/>
+  </div>
+  
+</div>

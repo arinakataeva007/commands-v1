@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from 'src/app/models/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
@@ -7,10 +7,9 @@ import { AuthorizationService } from 'src/app/services/authorization.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  protected userId!: string;
-  protected userInfo!: IUser;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,5 +24,20 @@ export class HomeComponent {
         console.log(data.userIconUrl);
       });
     });
+  }
+
+  protected userId!: string;
+  protected userInfo!: IUser;
+  protected addingProject = false;
+
+  private cdr = inject(ChangeDetectorRef);
+
+  protected addProject(){
+    this.addingProject = true;
+
+  }
+
+  protected closeModal(){
+    this.addingProject = false;
   }
 }

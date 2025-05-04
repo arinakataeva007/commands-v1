@@ -3,15 +3,24 @@
   display: flex;
   justify-content: space-between;
   .navigation__btn {
+    cursor: pointer;
     border: 2px solid rgb(106, 79, 169);
     border-radius: 8.75px;
     background: transparent;
     box-sizing: border-box;
     padding: 7.5px;
+    z-index: 1;
+    &:hover {
+      border: 2px solid rgb(221, 216, 232);
+    }
+    &:active {
+      background: rgb(221, 216, 232);
+    }
     img {
       box-sizing: border-box;
       max-width: 35px;
       max-height: 35px;
+      z-index: -1000;
     }
   }
   .btn-container {

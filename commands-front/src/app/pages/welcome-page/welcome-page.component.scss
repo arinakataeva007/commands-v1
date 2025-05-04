@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(255, 255, 255);
   margin: 85px;
   margin-bottom: 120px;
   border-radius: 31px;
@@ -35,6 +34,7 @@
       text-align: center;
       width: 447px;
       height: 129px;
+      color: rgb(255, 255, 255);
       span {
         background: linear-gradient(rgb(0, 255, 255), rgb(255, 0, 184));
         -webkit-background-clip: text;

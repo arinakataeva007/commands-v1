@@ -1,0 +1,159 @@
+@mixin controll-style {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid rgba(31, 0, 97, 0.7);
+  border-radius: 20px;
+  padding: 18px 10px 18px 30px;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  &::placeholder {
+    color: rgba(31, 0, 97, 0.3);
+    font-family: Lato;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+  }
+}
+:host {
+  .add-project {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 40px;
+    box-shadow: 0px 0px 50px 0px rgba(31, 0, 97, 0.25);
+    background: rgb(255, 255, 255);
+    padding: 33px;
+
+    &__nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .nav__close-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        background: none;
+        border: none;
+      }
+      .nav-logo {
+        width: 60px;
+        height: 32px;
+        display: flex;
+        flex-direction: column;
+        &__parag {
+          color: rgb(31, 0, 97);
+          display: block;
+          padding: 0;
+          margin: 0;
+          font-size: 18px;
+          font-weight: 800;
+          text-align: center;
+          text-transform: uppercase;
+          margin-bottom: -15px;
+        }
+        &__desc {
+          margin-left: 50px;
+          background: linear-gradient(
+            90deg,
+            rgb(0, 56, 255),
+            rgb(122, 59, 255),
+            rgb(252, 0, 181)
+          );
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+
+          font-size: 8px;
+          font-weight: 500;
+          letter-spacing: 0%;
+          text-align: right;
+          width: 60px;
+          height: 10px;
+        }
+      }
+    }
+    &__main {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .main__title {
+        color: rgb(31, 0, 97);
+        font-family: Lato;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 29px;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 47px;
+      }
+      .main__form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        width: 100%;
+        margin-bottom: 80px;
+        .name-project-controll {
+          @include controll-style();
+        }
+        .descreption-controll {
+          @include controll-style();
+        }
+        .role-select {
+          @include controll-style();
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("../../../assets/arrow_down.svg");
+          background-repeat: no-repeat;
+          background-position: right 12px center;
+          background-size: 20px 20px;
+        }
+        .datetime-container {
+          display: flex;
+          flex-direction: column;
+          .field-date-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            .date-controll {
+              @include controll-style();
+            }
+          }
+          .datetime-container__title {
+            color: rgb(99, 77, 145);
+            font-family: Lato;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 29px;
+            letter-spacing: 0%;
+            text-align: left;
+          }
+        }
+      }
+      .create-btn {
+        border: none;
+        padding: 33px 76px 33px 75px;
+        border-radius: 40px;
+        box-shadow: inset 0px 0px 24px 0px rgb(219, 202, 255);
+        background: linear-gradient(
+          27.5deg,
+          rgb(41, 0, 127) 12.596%,
+          rgb(122, 59, 255) 84.107%
+        );
+        color: rgb(255, 255, 255);
+        font-family: Lato;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: 10%;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
