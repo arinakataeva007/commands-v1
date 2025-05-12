@@ -31,7 +31,7 @@ export class AddProjectModalComponent {
   protected onSaveProjectCick(){
     const newProject: IProjectRequest = {
       author: this.userId,
-      projectName: this.projectForm.get('name')?.value(),
+      projectName: this.projectForm.get('name')?.value,
       projectDescreption: this.projectForm.get('descreption')?.value || '',
       projectMembers: [this.userId],
       projectRoles:[...this.projectForm.get('otherRoles')?.value,  this.projectForm.get('authorRole')?.value]

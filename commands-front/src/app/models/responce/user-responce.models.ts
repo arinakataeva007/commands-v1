@@ -4,9 +4,10 @@ export interface IUser{
     email: string;
     password: string;
     description?:string;
-    rolesId?: string;
+    rolesId?: string[];
     userIconUrl?:string;
     projectsId?: string[],
+    [key: string]: string | string[] | undefined; 
 }
 
 export interface ICheckser{

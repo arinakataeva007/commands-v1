@@ -15,9 +15,9 @@ namespace Commands_back.Controllers
             return Ok(roles);
         }
         [HttpGet("{id}")]
-        public IActionResult GetRoleById(Guid id)
+        public IActionResult GetRoleById(string name)
         {
-            var user = _roleService.GetRoleById(id);
+            var user = _roleService.GetRoleById(name);
             return Ok(user);
         }
         [HttpPost]
@@ -32,9 +32,9 @@ namespace Commands_back.Controllers
         }
 
         [HttpDelete]
-        public void DeleteUser(Guid id)
+        public void DeleteUser(string name)
         {
-            _roleService.DeleteRole(id);
+            _roleService.DeleteRole(name);
         }
     }
 }

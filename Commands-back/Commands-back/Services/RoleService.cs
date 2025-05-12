@@ -6,9 +6,9 @@ namespace Commands_back.Services;
 public interface IRoleService
 {
     List<Role> GetAllRoles();
-    Role GetRoleById(Guid id);
-    Guid CreateRole(string name);
-    void DeleteRole(Guid id);
+    Role GetRoleById(string name);
+    string CreateRole(string name);
+    void DeleteRole(string name);
 }
 public class RoleService(IRoleRepository roleRepository) : IRoleService
 {
@@ -18,18 +18,18 @@ public class RoleService(IRoleRepository roleRepository) : IRoleService
         return _roleRepository.GetAllRoles();
     }
 
-    public Role GetRoleById(Guid id)
+    public Role GetRoleById(string name)
     {
-        return _roleRepository.GetRoleById(id);
+        return _roleRepository.GetRoleByName(name);
     }
 
-    public Guid CreateRole(string name)
+    public string CreateRole(string name)
     {
         return _roleRepository.CreateRole(name);
     }
 
-    public void DeleteRole(Guid id)
+    public void DeleteRole(string name)
     {
-        _roleRepository.DeleteRole(id);
+        _roleRepository.DeleteRole(name);
     }
 }

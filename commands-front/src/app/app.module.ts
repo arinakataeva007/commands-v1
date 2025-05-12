@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-project-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectService } from './services/project.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

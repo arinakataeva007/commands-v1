@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -29,7 +30,11 @@ export class SignInModalComponent {
       email: this.authForm.get('email')?.value,
       password: this.authForm.get('password')?.value
     }
-    const responce = await this.authService.createUser(user);
+    this.authService.createUser(user).pipe(take(1)).subscribe({
+      error: (err) => {
+        console.error('Ошибка при регистрации пользователя', err);
+      }
+    });
   }
 
   protected async goToLoginIn() {

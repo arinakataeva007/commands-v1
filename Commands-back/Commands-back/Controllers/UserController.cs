@@ -34,7 +34,7 @@ namespace Commands_back.Controllers
             }
             
             var hashedPassword = _hasher.HashPassword(new Models.User{Password = request.Password, Email = request.Email,UserName = request.Name}, request.Password);
-            var userId = _userService.CreatUser(request.Name, request.Email, hashedPassword, request.Description, request.RolesId, request.PathIcon);
+            var userId = _userService.CreatUser(request.Name, request.Email, hashedPassword, request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
             return CreatedAtAction(nameof(GetUserById), new { id = userId }, new { id = userId });
         }
 
@@ -43,9 +43,15 @@ namespace Commands_back.Controllers
         {
             _userService.DeleteUser(id);
         }
+    
+        [HttpPut("{id}")]
+        public void UpdateUserInfo([FromBody] UpdateUserResponce request)
+        {
+            _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password, request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
+        }
 
         [HttpPost("login")]
-        public IActionResult CheckUserInfo([FromBody] CheckUsernfoResponce request)
+        public IActionResult CheckUserInfo([FromBody] CheckUserInfoResponce request)
         {
             var user = _userService.GetUserByEmail(request.Email);
             if (user == null)

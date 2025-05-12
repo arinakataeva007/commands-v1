@@ -1,30 +1,49 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ICheckser, IUser } from '../models/responce/user-responce.models';
-import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, switchMap, map } from 'rxjs';
+import { IUser, ICheckser } from '../models/responce/user-responce.models';
+
 @Injectable()
 export class AuthorizationService {
   private apiUrl = 'https://localhost:7122/api/User';
+
   constructor(private http: HttpClient) {}
 
-  public async createUser(userInfo: IUser): Promise<string> {
-    const response = await firstValueFrom(
-      this.http.post<{ id: string }>(this.apiUrl, userInfo)
+  public createUser(userInfo: IUser): Observable<string> {
+    return this.http.post<{ id: string }>(this.apiUrl, userInfo).pipe(
+      map(res => res.id)
     );
-    return response.id;
   }
 
-  public async checkUser(userInfo: ICheckser){
-    const response = await firstValueFrom(
-      this.http.post<{ uid: string }>(`${this.apiUrl}/login`, userInfo)
-    );
-    return response;
+  public checkUser(userInfo: ICheckser): Observable<{ uid: string }> {
+    console.log(userInfo);
+    return this.http.post<{ uid: string }>(`${this.apiUrl}/login`, userInfo);
   }
 
-  public async getUser(userId:string){
-    const responce = await firstValueFrom(
-      this.http.get<IUser>(`${this.apiUrl}/${userId}`)
+  public getUser(userId: string): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}/${userId}`);
+  }
+/**
+ * Метод для обновления полей в информации о пользователе
+ * @param userChangesFields объект пользователя с обновленными полями
+ * @returns 
+ */
+  public updateUserInfo(userChangesFields: IUser): Observable<any> {
+    return this.getUser(userChangesFields.userId!).pipe(
+      switchMap(currentUser => {
+        const updatedFields: any = {};
+        Object.keys(userChangesFields).forEach(key => {
+          if (userChangesFields[key] && userChangesFields[key] !== currentUser[key]) {
+            updatedFields[key] = userChangesFields[key];
+          }
+        });
+
+        if (Object.keys(updatedFields).length === 0) {
+          return of({ message: 'Изменений не обнаружено.' });
+        }
+
+        return this.http.put(`${this.apiUrl}/${userChangesFields.userId}`, updatedFields);
+      })
     );
-    return responce;
   }
 }

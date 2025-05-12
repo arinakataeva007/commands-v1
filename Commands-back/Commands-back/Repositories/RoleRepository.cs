@@ -6,9 +6,9 @@ namespace Commands_back.Repositories;
 public interface IRoleRepository
 {
     List<Role> GetAllRoles();
-    Role GetRoleById(Guid id);
-    Guid CreateRole(string name);
-    void DeleteRole(Guid id);
+    Role GetRoleByName(string name);
+    string CreateRole(string name);
+    void DeleteRole(string name);
 }
 public class RoleRepository(AppDbContext context) : IRoleRepository
 {
@@ -18,30 +18,29 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
         return _context.Roles.ToList();
     }
 
-    public Role GetRoleById(Guid id)
+    public Role GetRoleByName(string name)
     {
-        return _context.Roles.FirstOrDefault(role => role.RoleId == id)?? throw new InvalidOperationException();
+        return _context.Roles.FirstOrDefault(role => role.RolesName == name)?? throw new InvalidOperationException();
     }
 
-    public Guid CreateRole(string name)
+    public string CreateRole(string name)
     {
         var newRole = new Role
         {
-            RoleId = Guid.NewGuid(),
             RolesName = name
         };
         _context.Roles.Add(newRole);
         _context.SaveChanges();
-        return newRole.RoleId;
+        return newRole.RolesName;
     }
 
-    public void DeleteRole(Guid id)
+    public void DeleteRole(string name)
     {
-        var role = _context.Roles.FirstOrDefault(role => role.RoleId == id);
+        var role = _context.Roles.FirstOrDefault(role => role.RolesName == name);
 
         if (role == null)
         {
-            throw new InvalidOperationException($"Роль с ID {id} не найдена.");
+            throw new InvalidOperationException($"Роль с названием {name} не найдена.");
         }
 
         _context.Roles.Remove(role);

@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICheckser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
+import { map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-log-in-modal',
@@ -33,7 +34,13 @@ export class LogInModalComponent {
       email: this.authForm.get('email')?.value,
       password: this.authForm.get('password')?.value,
     };
-    const responce = await this.authService.checkUser(user);
-    this.router.navigate(['/homepage', responce.uid]);
+    this.authService.checkUser(user).pipe(
+      map(res => res.uid),
+      tap(uid => this.router.navigate(['/homepage', uid]))
+    ).subscribe({
+      error: (err) => {
+        console.error('Ошибка при проверке пользователя', err);
+      }
+    });
   }
 }

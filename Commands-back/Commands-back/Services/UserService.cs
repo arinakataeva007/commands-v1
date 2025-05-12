@@ -7,14 +7,15 @@ public interface IUserService
     List<User> GetAllUsers();
     User GetUserById(Guid id);
 
-    Guid CreatUser(string name, string email, string password, string description = "", Guid[] rolesId = null,
-        string pathIcon = null);
+    Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
+        string? pathIcon, Guid[]? projectId);
 
-    void UpdateUserInfo(Guid id, string name=null, string email=null, string password=null, string description = "", Guid[] rolesId = null,
-        string pathIcon = null);
+    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
+        string? description, Guid[]? rolesId,
+        string? pathIcon, Guid[]? projectsId);
     
     void DeleteUser(Guid id); 
-    Guid CheckUsernfo(string email, string passwrd);
+    Guid CheckUserInfo(string email, string passwrd);
     User GetUserByEmail(string email);
 }
 public class UserService(IUserRepository userRepository): IUserService
@@ -31,25 +32,25 @@ public class UserService(IUserRepository userRepository): IUserService
         return _userRepository.GetUserById(id);
     }
 
-    public Guid CreatUser(string name, string email, string password, string description = "", Guid[] rolesId = null,
-        string pathIcon = null)
+    public Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
+        string pathIcon, Guid[]? projectId)
     {
-        return _userRepository.CreatUser(name, email, password, description, rolesId, pathIcon);
+        return _userRepository.CreatUser(name, email, password, description, rolesId, pathIcon, projectId);
     }
 
-    public void UpdateUserInfo(Guid id, string name = null, string email = null, string password = null, string description = "",
-        Guid[] rolesId = null, string pathIcon = null)
+    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description,
+        Guid[]? rolesId, string? pathIcon, Guid[]? projectId)
     {
-        _userRepository.UpdateUserInfo(id, name, email, password, description, rolesId, pathIcon);
+        _userRepository.UpdateUserInfo(id, name, email, password, description, rolesId, pathIcon, projectId);
     }
     public void DeleteUser(Guid id)
     {
         _userRepository.DeleteUser(id);
     }
     
-    public Guid CheckUsernfo(string email, string passwrd)
+    public Guid CheckUserInfo(string email, string passwrd)
     {
-        return _userRepository.CheckUsernfo(email, passwrd);
+        return _userRepository.CheckUserInfo(email, passwrd);
     }
 
     public User GetUserByEmail(string email)

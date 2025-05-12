@@ -7,16 +7,16 @@ public interface IUserRepository
     List<User> GetAllUsers();
     User GetUserById(Guid id);
 
-    Guid CreatUser(string name, string email, string password, string description = "", Guid[] rolesId = null,
-        string pathIcon = null);
+    Guid CreatUser(string? name, string? email, string? password, string? description = "", Guid[]? rolesId = null,
+        string? pathIcon = null, Guid[]? projectId = null);
 
     void DeleteUser(Guid id);
 
-    void UpdateUserInfo(Guid id, string name = null, string email = null, string password = null,
-        string description = "", Guid[] rolesId = null,
-        string pathIcon = null);
+    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
+        string? description, Guid[]? rolesId,
+        string? pathIcon, Guid[]? projectsId);
 
-    Guid CheckUsernfo(string email, string passwrd);
+    Guid CheckUserInfo(string email, string passwrd);
     
     User GetUserByEmail(string email);
 }
@@ -32,9 +32,9 @@ public class UserRepository(AppDbContext context) : IUserRepository
     {
         return _context.Users.FirstOrDefault(user => user.UserId == id) ?? throw new InvalidOperationException();
     }
-
-    public Guid CreatUser(string name, string email, string password, string description = "", Guid[] rolesId = null,
-        string pathIcon = "")
+    
+    public Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
+        string? pathIcon, Guid[]? projectsId)
     {
         var newUser = new User
         {
@@ -45,25 +45,11 @@ public class UserRepository(AppDbContext context) : IUserRepository
             Description = description,
             UserIconUrl = pathIcon,
             RolesId = rolesId,
+            ProjectsId = projectsId
         };
         _context.Users.Add(newUser);
         _context.SaveChanges();
         return newUser.UserId;
-    }
-
-    public void UpdateUserInfo(Guid id, string name = null, string email = null, string password = null, string description = "", Guid[] rolesId = null, string pathIcon = null)
-    {
-        var user = _context.Users.FirstOrDefault(u => u.UserId == id);
-        if (user == null) return;
-
-        if (!string.IsNullOrEmpty(name)) user.UserName = name;
-        if (!string.IsNullOrEmpty(email)) user.Email = email;
-        if (!string.IsNullOrEmpty(password)) user.Password = password;
-        if (!string.IsNullOrEmpty(description) && description != "") user.Description = description;
-        if (!string.IsNullOrEmpty(pathIcon)) user.UserIconUrl = pathIcon;
-
-        _context.Users.Update(user);
-        _context.SaveChanges();
     }
 
     public void DeleteUser(Guid id)
@@ -79,14 +65,29 @@ public class UserRepository(AppDbContext context) : IUserRepository
         _context.SaveChanges();
     }
 
-    public Guid CheckUsernfo(string email, string passwrd)
+    public Guid CheckUserInfo(string email, string passwrd)
     {
         var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == passwrd);
         if (user == null)
         {
-            throw new InvalidOperationException($"Данные введен неверно");
+            throw new InvalidOperationException($"Данные введены неверно");
         }
         return user.UserId;
+    }
+
+    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description, Guid[]? rolesId,
+        string? pathIcon, Guid[]? projectsId)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+        if (user == null) return;
+        if (!string.IsNullOrEmpty(name)) user.UserName = name;
+        if (!string.IsNullOrEmpty(email)) user.Email = email;
+        if (!string.IsNullOrEmpty(password)) user.Password = password;
+        if (!string.IsNullOrEmpty(description) && description != "") user.Description = description;
+        if (!string.IsNullOrEmpty(pathIcon) && pathIcon != "") user.UserIconUrl = pathIcon;
+        if (projectsId != null) user.ProjectsId = projectsId;
+        _context.Users.Update(user);
+        _context.SaveChanges();
     }
 
     public User GetUserByEmail(string email)
