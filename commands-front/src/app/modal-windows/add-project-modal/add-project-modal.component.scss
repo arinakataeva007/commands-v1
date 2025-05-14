@@ -108,10 +108,7 @@
           appearance: none;
           -webkit-appearance: none;
           -moz-appearance: none;
-          background-image: url("../../../assets/arrow_down.svg");
-          background-repeat: no-repeat;
-          background-position: right 12px center;
-          background-size: 20px 20px;
+          background: url("../../../assets/arrow_down.svg") no-repeat right 12px center / 20px 20px;
         }
         .datetime-container {
           display: flex;

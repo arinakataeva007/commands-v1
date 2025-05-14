@@ -12,10 +12,12 @@
         <input class="name-project-controll" placeholder="Название проекта" [formControlName]="'name'" >
         <textarea class="descreption-controll" placeholder="Описание" [formControlName]="'descreption'" ></textarea>
         <select class="role-select" [formControlName]="'authorRole'">
-          <option [value]="'Developer'">Developer</option>
+          <option [value]="" selected disabled hidden>Выберите свою роль</option>
+          <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
         </select>
         <select class="role-select" [formControlName]="'otherRoles'">
-          <option [value]="'Developer'">Developer</option>
+          <option [value]="" selected disabled hidden>Выберите необходимые роли</option>
+          <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
         </select>
         <!-- TODO: скрыто до реализации бэкенда -->
         <!-- <div class="datetime-container">

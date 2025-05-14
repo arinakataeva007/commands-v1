@@ -84,6 +84,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
         if (!string.IsNullOrEmpty(email)) user.Email = email;
         if (!string.IsNullOrEmpty(password)) user.Password = password;
         if (!string.IsNullOrEmpty(description) && description != "") user.Description = description;
+        if (rolesId != null) user.RolesId = rolesId;
         if (!string.IsNullOrEmpty(pathIcon) && pathIcon != "") user.UserIconUrl = pathIcon;
         if (projectsId != null) user.ProjectsId = projectsId;
         _context.Users.Update(user);

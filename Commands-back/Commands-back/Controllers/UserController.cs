@@ -47,8 +47,10 @@ namespace Commands_back.Controllers
         [HttpPut("{id}")]
         public void UpdateUserInfo([FromBody] UpdateUserResponce request)
         {
-            _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password, request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
+            _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password,
+                request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
         }
+
 
         [HttpPost("login")]
         public IActionResult CheckUserInfo([FromBody] CheckUserInfoResponce request)

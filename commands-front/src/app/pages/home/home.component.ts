@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, take, tap } from 'rxjs';
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
+import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
 import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
@@ -22,7 +23,7 @@ export class HomeComponent {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthorizationService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
   ) {}
 
   ngOnInit(): void {
@@ -66,8 +67,12 @@ export class HomeComponent {
           if (!this.userInfo.projectsId.includes(project.id)) {
             this.userInfo.projectsId.push(project.id);
           }
+          const requestUser: IUpdateUserInfo = {
+            userId: this.userId,
+            projectsId: this.userInfo.projectsId,
+          }
           console.log(this.userInfo);
-          return this.authService.updateUserInfo(this.userInfo);
+          return this.authService.updateUserInfo(requestUser);
         }),
       )
       .subscribe({
@@ -75,7 +80,7 @@ export class HomeComponent {
           console.log('User info updated successfully', response);
         },
         error: (err) => {
-          console.error('Error occurred:', err);
+          console.error('Error occurred:', err.error.errors);
         },
       });
   }

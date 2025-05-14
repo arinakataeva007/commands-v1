@@ -15,7 +15,7 @@ public interface IUserService
         string? pathIcon, Guid[]? projectsId);
     
     void DeleteUser(Guid id); 
-    Guid CheckUserInfo(string email, string passwrd);
+    Guid CheckUserInfo(string email, string password);
     User GetUserByEmail(string email);
 }
 public class UserService(IUserRepository userRepository): IUserService

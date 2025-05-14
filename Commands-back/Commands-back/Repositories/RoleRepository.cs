@@ -27,6 +27,7 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
     {
         var newRole = new Role
         {
+            Id = Guid.NewGuid(),
             RolesName = name
         };
         _context.Roles.Add(newRole);

@@ -10,6 +10,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-project-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './services/project.service';
+import { RolesService } from './services/roles.service.ts.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { ProjectService } from './services/project.service';
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [ProjectService],
+  providers: [ProjectService, RolesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
