@@ -44,14 +44,40 @@ namespace Commands_back.Controllers
             _userService.DeleteUser(id);
         }
     
+        // [HttpPut("{id}")]
+        // public void UpdateUserInfo([FromBody] UpdateUserResponce request)
+        // {
+        //     _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password,
+        //         request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
+        // }
         [HttpPut("{id}")]
-        public void UpdateUserInfo([FromBody] UpdateUserResponce request)
+        public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserResponce dto)
         {
-            _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password,
-                request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
+            try
+            {
+                var updatedUser = _userService.UpdateUserInfo(
+                    id,
+                    dto.UserName,
+                    dto.Email,
+                    dto.Password,
+                    dto.Description,
+                    dto.RolesId,
+                    dto.UserIconUrl,
+                    dto.ProjectsId
+                );
+
+                return Ok(updatedUser);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Произошла ошибка при обновлении пользователя", error = ex.Message });
+            }
         }
-
-
+        
         [HttpPost("login")]
         public IActionResult CheckUserInfo([FromBody] CheckUserInfoResponce request)
         {

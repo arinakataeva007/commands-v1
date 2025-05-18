@@ -21,6 +21,7 @@ export class AddProjectModalComponent {
   @Input({ required: true }) userId = '';
 
   @Output() onSaveProject = new EventEmitter<IProjectRequest>();
+  @Output() onCloseClick = new EventEmitter();
 
   constructor(private roleService: RolesService) {
     this.projectForm = new FormGroup({

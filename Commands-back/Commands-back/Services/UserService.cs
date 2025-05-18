@@ -10,9 +10,10 @@ public interface IUserService
     Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
         string? pathIcon, Guid[]? projectId);
 
-    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
+    User UpdateUserInfo(Guid id, string? name, string? email, string? password,
         string? description, Guid[]? rolesId,
         string? pathIcon, Guid[]? projectsId);
+
     
     void DeleteUser(Guid id); 
     Guid CheckUserInfo(string email, string password);
@@ -38,10 +39,10 @@ public class UserService(IUserRepository userRepository): IUserService
         return _userRepository.CreatUser(name, email, password, description, rolesId, pathIcon, projectId);
     }
 
-    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description,
+    public User UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description,
         Guid[]? rolesId, string? pathIcon, Guid[]? projectId)
     {
-        _userRepository.UpdateUserInfo(id, name, email, password, description, rolesId, pathIcon, projectId);
+        return _userRepository.UpdateUserInfo(id, name, email, password, description, rolesId, pathIcon, projectId);
     }
     public void DeleteUser(Guid id)
     {

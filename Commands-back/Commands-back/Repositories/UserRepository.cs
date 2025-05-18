@@ -12,9 +12,10 @@ public interface IUserRepository
 
     void DeleteUser(Guid id);
 
-    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
+    User UpdateUserInfo(Guid id, string? name, string? email, string? password,
         string? description, Guid[]? rolesId,
         string? pathIcon, Guid[]? projectsId);
+
 
     Guid CheckUserInfo(string email, string passwrd);
     
@@ -75,21 +76,40 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return user.UserId;
     }
 
-    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description, Guid[]? rolesId,
+    public User UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description, Guid[]? rolesId,
         string? pathIcon, Guid[]? projectsId)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == id);
-        if (user == null) return;
+        if (user == null)
+        {
+            throw new InvalidOperationException($"Пользователь с ID {id} не найден.");
+        }
+
         if (!string.IsNullOrEmpty(name)) user.UserName = name;
         if (!string.IsNullOrEmpty(email)) user.Email = email;
         if (!string.IsNullOrEmpty(password)) user.Password = password;
-        if (!string.IsNullOrEmpty(description) && description != "") user.Description = description;
+        if (!string.IsNullOrEmpty(description)) user.Description = description;
         if (rolesId != null) user.RolesId = rolesId;
-        if (!string.IsNullOrEmpty(pathIcon) && pathIcon != "") user.UserIconUrl = pathIcon;
+        if (!string.IsNullOrEmpty(pathIcon)) user.UserIconUrl = pathIcon;
         if (projectsId != null) user.ProjectsId = projectsId;
-        _context.Users.Update(user);
-        _context.SaveChanges();
+
+        // _context.Users.Update(user);
+        // _context.SaveChanges();
+        try
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Ошибка при сохранении изменений: " + ex.Message);
+            throw;
+        }
+
+
+        return user;
     }
+
 
     public User GetUserByEmail(string email)
     {

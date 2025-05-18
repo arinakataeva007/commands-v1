@@ -3,9 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, switchMap, take, tap } from 'rxjs';
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
 import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
@@ -19,14 +22,14 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthorizationService,
-    private projectService: ProjectService,
+    private projectService: ProjectService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;
       this.authService
@@ -34,12 +37,25 @@ export class HomeComponent {
         .pipe(take(1))
         .subscribe((data) => {
           this.userInfo = data as IUser;
+          if (data.projectsId && data.projectsId.length > 0) {
+            data.projectsId.forEach((projId) => {
+              this.projectService
+                .getProjectInfoById(projId)
+                .pipe(take(1))
+                .subscribe((project) => {
+                  const current = this.userProjects$$.value;
+                  this.userProjects$$.next([...current, project]);
+                });
+            });
+          }
         });
     });
   }
 
   protected userId!: string;
   protected userInfo!: IUser;
+  private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
+  protected userProjects$ = this.userProjects$$.asObservable();
   protected addingProject = false;
 
   private cdr = inject(ChangeDetectorRef);
@@ -70,18 +86,35 @@ export class HomeComponent {
           const requestUser: IUpdateUserInfo = {
             userId: this.userId,
             projectsId: this.userInfo.projectsId,
-          }
-          console.log(this.userInfo);
+          };
           return this.authService.updateUserInfo(requestUser);
-        }),
+        })
       )
       .subscribe({
-        next: (response) => {
+        next: (response: IUser) => {
           console.log('User info updated successfully', response);
+          this.userInfo = response;
+          this.updateProjects(response.projectsId);
         },
         error: (err) => {
           console.error('Error occurred:', err.error.errors);
         },
       });
+  }
+  private updateProjects(projectsId: string[] | undefined) {
+    if (!projectsId) return;
+
+    projectsId.forEach((projId) => {
+      this.projectService
+        .getProjectInfoById(projId)
+        .pipe(take(1))
+        .subscribe((project) => {
+          const current = this.userProjects$$.value;
+          const exists = current.some((usPr) => usPr.id === projId);
+          if (!exists) {
+            this.userProjects$$.next([...current, project]);
+          }
+        });
+    });
   }
 }

@@ -23,7 +23,11 @@
       </div>
       <div class="section-back posts">
         <h3 class="posts__title">Публикации</h3>
-        <div class="posts-gallery"></div>
+        <div class="posts-gallery">
+          <div class="post-crad" *ngFor="let project of userProjects$ | async">
+            <p>{{project.projectName}}</p>
+          </div>
+        </div>
         <button class="posts__add-btn">
           <img src="../../../assets/add_white.svg" width="49px" height="49px" />
         </button>
@@ -47,5 +51,6 @@
   <app-add-project-modal
     [userId]="userId"
     (onSaveProject)="saveProject($event)"
+    (onCloseClick)="closeModal()"
   />
 </div>
