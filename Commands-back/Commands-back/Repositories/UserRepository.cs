@@ -92,9 +92,6 @@ public class UserRepository(AppDbContext context) : IUserRepository
         if (rolesId != null) user.RolesId = rolesId;
         if (!string.IsNullOrEmpty(pathIcon)) user.UserIconUrl = pathIcon;
         if (projectsId != null) user.ProjectsId = projectsId;
-
-        // _context.Users.Update(user);
-        // _context.SaveChanges();
         try
         {
             _context.Users.Update(user);
@@ -105,8 +102,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
             Console.WriteLine("Ошибка при сохранении изменений: " + ex.Message);
             throw;
         }
-
-
+        
         return user;
     }
 

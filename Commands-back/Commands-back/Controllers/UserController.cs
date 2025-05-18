@@ -43,13 +43,7 @@ namespace Commands_back.Controllers
         {
             _userService.DeleteUser(id);
         }
-    
-        // [HttpPut("{id}")]
-        // public void UpdateUserInfo([FromBody] UpdateUserResponce request)
-        // {
-        //     _userService.UpdateUserInfo(request.UserId, request.UserName, request.Email, request.Password,
-        //         request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
-        // }
+        
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserResponce dto)
         {
