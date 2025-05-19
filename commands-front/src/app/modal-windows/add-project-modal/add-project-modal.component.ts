@@ -47,11 +47,9 @@ export class AddProjectModalComponent {
       projectName: this.projectForm.get('name')?.value,
       projectDescreption: this.projectForm.get('descreption')?.value || '',
       projectMembers: [this.userId],
-      projectRoles: [
-        ...this.projectForm.get('otherRoles')?.value,
-        this.projectForm.get('authorRole')?.value,
-      ],
+      projectRoles: [this.projectForm.get('otherRoles')?.value,this.projectForm.get('authorRole')?.value],
     };
     this.onSaveProject.emit(newProject);
+    setTimeout(()=> this.onCloseClick.emit(), 200);
   }
 }

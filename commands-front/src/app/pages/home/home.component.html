@@ -6,6 +6,7 @@
         <div class="left-container-profile">
           <div class="profile_img-container">
             <img
+              *ngIf="!!userInfo.userIconUrl"
               [src]="userInfo.userIconUrl"
               class="profile__img"
               width="200px"
@@ -25,11 +26,25 @@
         <h3 class="posts__title">Публикации</h3>
         <div class="posts-gallery">
           <div class="post-crad" *ngFor="let project of userProjects$ | async">
-            <p>{{project.projectName}}</p>
+            <h3 class="post-crad__title">{{ project.projectName }}</h3>
+            <div class="post-crad__info">
+              <div class="info__roles">
+                <p class="roles-title">Роли в проекте:</p>
+                <ul class="roles-list">
+                  <li
+                    *ngFor="let role of projectRoles | async"
+                    class="role-item"
+                  >
+                    {{ role }}
+                  </li>
+                </ul>
+              </div>
+              <div class="info__desc">{{ project.projectDescription }}</div>
+            </div>
           </div>
         </div>
-        <button class="posts__add-btn">
-          <img src="../../../assets/add_white.svg" width="49px" height="49px" />
+        <button class="posts__add-btn" (click)="addProject()">
+          <img src="../../../assets/add_white.svg" width="29px" height="29px" />
         </button>
       </div>
     </div>

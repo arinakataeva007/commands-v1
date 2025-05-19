@@ -6,7 +6,7 @@ namespace Commands_back.Repositories;
 public interface IRoleRepository
 {
     List<Role> GetAllRoles();
-    Role GetRoleByName(string name);
+    Role GetRoleById(Guid id);
     string CreateRole(string name);
     void DeleteRole(string name);
 }
@@ -18,9 +18,9 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
         return _context.Roles.ToList();
     }
 
-    public Role GetRoleByName(string name)
+    public Role GetRoleById(Guid id)
     {
-        return _context.Roles.FirstOrDefault(role => role.RolesName == name)?? throw new InvalidOperationException();
+        return _context.Roles.FirstOrDefault(role => role.Id == id)?? throw new InvalidOperationException();
     }
 
     public string CreateRole(string name)

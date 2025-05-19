@@ -3,18 +3,26 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
-  OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, switchMap, take, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
 import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
+import { IRole } from 'src/app/models/responce/role-responce.models';
 import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { RolesService } from 'src/app/services/roles.service.ts.service';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +34,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthorizationService,
-    private projectService: ProjectService
-  ) {}
+    private projectService: ProjectService,
+    private rolesService: RolesService
+  ) {
+    this.projectRoles = this.rolesService.userRoles$$.asObservable();
+  }
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -44,6 +55,7 @@ export class HomeComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe((project) => {
                   const current = this.userProjects$$.value;
+                  this.rolesService.getRolesName(project);
                   this.userProjects$$.next([...current, project]);
                 });
             });
@@ -56,6 +68,7 @@ export class HomeComponent implements OnInit {
   protected userInfo!: IUser;
   private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
   protected userProjects$ = this.userProjects$$.asObservable();
+  protected projectRoles: Observable<string[]>;
   protected addingProject = false;
 
   private cdr = inject(ChangeDetectorRef);
@@ -80,13 +93,22 @@ export class HomeComponent implements OnInit {
             this.userInfo.projectsId = [];
           }
 
+          if (!this.userInfo.rolesId) {
+            this.userInfo.rolesId = [];
+          }
+
           if (!this.userInfo.projectsId.includes(project.id)) {
             this.userInfo.projectsId.push(project.id);
           }
           const requestUser: IUpdateUserInfo = {
             userId: this.userId,
+            rolesId: [
+              ...this.userInfo.rolesId!,
+              project.projectRoles![project.projectRoles!.length - 1],
+            ],
             projectsId: this.userInfo.projectsId,
           };
+          this.rolesService.getRoleById(project.id);
           return this.authService.updateUserInfo(requestUser);
         })
       )
@@ -101,6 +123,7 @@ export class HomeComponent implements OnInit {
         },
       });
   }
+
   private updateProjects(projectsId: string[] | undefined) {
     if (!projectsId) return;
 
