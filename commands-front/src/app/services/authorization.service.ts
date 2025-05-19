@@ -17,7 +17,6 @@ export class AuthorizationService {
   }
 
   public checkUser(userInfo: ICheckser): Observable<{ uid: string }> {
-    console.log(userInfo);
     return this.http.post<{ uid: string }>(`${this.apiUrl}/login`, userInfo);
   }
 
