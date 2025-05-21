@@ -36,9 +36,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthorizationService,
     private projectService: ProjectService,
     private rolesService: RolesService
-  ) {
-    this.projectRoles = this.rolesService.userRoles$$.asObservable();
-  }
+  ) {}
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -55,7 +53,17 @@ export class HomeComponent implements OnInit {
                 .pipe(take(1))
                 .subscribe((project) => {
                   const current = this.userProjects$$.value;
-                  this.rolesService.getRolesName(project);
+                  if (project.projectRoles?.length) {
+                    forkJoin(
+                      project.projectRoles.map((roleId) =>
+                        this.rolesService.getRoleNameById(roleId).pipe(take(1))
+                      )
+                    ).subscribe((roleNames: string[]) => {
+                      this.projectRolesMap[project.id] = roleNames;
+                      this.cdr.markForCheck();
+                    });
+                  }
+
                   this.userProjects$$.next([...current, project]);
                 });
             });
@@ -68,7 +76,7 @@ export class HomeComponent implements OnInit {
   protected userInfo!: IUser;
   private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
   protected userProjects$ = this.userProjects$$.asObservable();
-  protected projectRoles: Observable<string[]>;
+  protected projectRolesMap: Record<string, string[]> = {};
   protected addingProject = false;
 
   private cdr = inject(ChangeDetectorRef);
@@ -79,6 +87,10 @@ export class HomeComponent implements OnInit {
 
   protected closeModal() {
     this.addingProject = false;
+  }
+
+  protected goToProject(){
+    
   }
 
   protected saveProject(event: IProjectRequest): void {
@@ -108,7 +120,17 @@ export class HomeComponent implements OnInit {
             ],
             projectsId: this.userInfo.projectsId,
           };
-          this.rolesService.getRoleById(project.id);
+          if (project.projectRoles?.length) {
+            forkJoin(
+              project.projectRoles.map((roleId) =>
+                this.rolesService.getRoleNameById(roleId).pipe(take(1))
+              )
+            ).subscribe((roleNames: string[]) => {
+              this.projectRolesMap[project.id] = roleNames;
+              this.cdr.markForCheck();
+            });
+          }
+
           return this.authService.updateUserInfo(requestUser);
         })
       )

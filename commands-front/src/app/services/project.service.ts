@@ -11,6 +11,10 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
+  public getAllProjects(): Observable<IProjectResponce[]>{
+    return this.http.get<IProjectResponce[]>(this.apiUrl);
+  }
+
   public createProject(projectInfo: IProjectRequest): Observable<string> {
     return this.http.post<string>(this.apiUrl, projectInfo).pipe(
       tap(id => this.#projId = id)

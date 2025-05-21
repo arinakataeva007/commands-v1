@@ -1,4 +1,4 @@
-<app-navigation (onAddClick)="addProject()"></app-navigation>
+<app-navigation [fromUser]="true" (onAddClick)="addProject()"></app-navigation>
 <main class="home_main">
   <section class="main__center-section">
     <div class="main-center__left">
@@ -25,14 +25,14 @@
       <div class="section-back posts">
         <h3 class="posts__title">Публикации</h3>
         <div class="posts-gallery">
-          <div class="post-crad" *ngFor="let project of userProjects$ | async">
+          <div class="post-crad" *ngFor="let project of userProjects$ | async" (click)="goToProject()">
             <h3 class="post-crad__title">{{ project.projectName }}</h3>
             <div class="post-crad__info">
               <div class="info__roles">
                 <p class="roles-title">Роли в проекте:</p>
                 <ul class="roles-list">
                   <li
-                    *ngFor="let role of projectRoles | async"
+                    *ngFor="let role of projectRolesMap[project.id] || []"
                     class="role-item"
                   >
                     {{ role }}

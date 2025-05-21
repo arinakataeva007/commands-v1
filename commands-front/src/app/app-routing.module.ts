@@ -5,6 +5,7 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { LogInModalComponent } from './modal-windows/log-in-modal/log-in-modal.component';
 import { SignInModalComponent } from './modal-windows/sign-in-modal/sign-in-modal.component';
 import { HomeComponent } from './pages/home/home.component';
+import { FunctionalPageComponent } from './pages/functional/functional-page/functional-page.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,10 @@ const routes: Routes = [
   },
   {
     path: 'homepage/:id_user', component: HomeComponent
-  }
+  },
+  {
+    path: 'functionalPage/:id_user', component:FunctionalPageComponent
+  },
 ];
 
 @NgModule({

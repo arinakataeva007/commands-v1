@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FunctionalModule } from './moduls/functional.modul';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
@@ -17,7 +17,6 @@ import { RolesService } from './services/roles.service.ts.service';
     AppComponent,
     WelcomePageComponent,
     HomeComponent,
-    NavigationComponent,
     AddProjectModalComponent,
   ],
   imports: [
@@ -25,9 +24,12 @@ import { RolesService } from './services/roles.service.ts.service';
     AppRoutingModule,
     AuthorizationModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NavigationComponent,
+    FunctionalModule
   ],
   providers: [ProjectService, RolesService],
+  exports:[],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
