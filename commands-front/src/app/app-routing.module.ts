@@ -6,6 +6,7 @@ import { LogInModalComponent } from './modal-windows/log-in-modal/log-in-modal.c
 import { SignInModalComponent } from './modal-windows/sign-in-modal/sign-in-modal.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FunctionalPageComponent } from './pages/functional/functional-page/functional-page.component';
+import { ProjectPageComponent } from './pages/project-page/project-page.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,9 @@ const routes: Routes = [
   {
     path: 'functionalPage/:id_user', component:FunctionalPageComponent
   },
+  {
+    path: 'projectPage/:id_project', component: ProjectPageComponent
+  }
 ];
 
 @NgModule({

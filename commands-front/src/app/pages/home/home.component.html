@@ -25,7 +25,7 @@
       <div class="section-back posts">
         <h3 class="posts__title">Публикации</h3>
         <div class="posts-gallery">
-          <div class="post-crad" *ngFor="let project of userProjects$ | async" (click)="goToProject()">
+          <div class="post-crad" *ngFor="let project of userProjects$ | async" (click)="goToProject(project.id)">
             <h3 class="post-crad__title">{{ project.projectName }}</h3>
             <div class="post-crad__info">
               <div class="info__roles">

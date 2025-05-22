@@ -138,6 +138,9 @@
               );
               margin-left: auto;
               margin-right: 30px;
+              &:hover {
+            transform: scale(1.05);
+          }
             }
           }
           &.profile {
@@ -203,6 +206,9 @@
               text-decoration: underline;
               margin-top: 170px;
               margin-right: 30px;
+              &:hover {
+            transform: scale(1.05);
+          }
             }
           }
         }

@@ -1,0 +1,22 @@
+<app-navigation [inUser]="true"></app-navigation>
+<main class="project-page">
+    <section class="project-page__article">
+        <div class="article-info">
+            <div class="article-info__title">{{project.projectName}}</div>
+            <p class="article-info__author">Автор: {{authorName}}</p>
+        </div>
+        <div class="article-info-footer">
+            <button class="article-info-footer__btn">откликнуться</button>
+        </div>
+    </section>
+    <section class="project-page__main-desc">
+        <p class="project-page__main-desc__title">Подробное описание</p>
+        <div class="project-page__main__descreption-cotainer">{{project.projectDescription}}</div>
+    </section>
+    <section class="project-page__footer">
+        <h4 class="project-page__footer__title">Роли</h4>
+        <div class="project-page__footer__roles-container">
+            <div class="role-card" *ngFor="let role of roles">{{role}}</div>
+        </div>
+    </section>
+</main>

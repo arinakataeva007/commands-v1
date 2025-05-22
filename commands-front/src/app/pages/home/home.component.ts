@@ -5,7 +5,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import {
   BehaviorSubject,
   forkJoin,
@@ -33,6 +33,7 @@ import { RolesService } from 'src/app/services/roles.service.ts.service';
 export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthorizationService,
     private projectService: ProjectService,
     private rolesService: RolesService
@@ -89,8 +90,8 @@ export class HomeComponent implements OnInit {
     this.addingProject = false;
   }
 
-  protected goToProject(){
-    
+  protected async goToProject(projId:string){
+    await this.router.navigate(['/projectPage', projId])
   }
 
   protected saveProject(event: IProjectRequest): void {

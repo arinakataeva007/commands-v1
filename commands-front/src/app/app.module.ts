@@ -11,6 +11,7 @@ import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './services/project.service';
 import { RolesService } from './services/roles.service.ts.service';
+import { ProjectPageComponent } from './pages/project-page/project-page.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RolesService } from './services/roles.service.ts.service';
     WelcomePageComponent,
     HomeComponent,
     AddProjectModalComponent,
+    ProjectPageComponent,
   ],
   imports: [
     BrowserModule,
