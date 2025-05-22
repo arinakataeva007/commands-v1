@@ -70,6 +70,9 @@
         font-weight: 400;
         letter-spacing: 0%;
         text-align: center;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
       &.sign-in {
         border-radius: 35px;
@@ -80,6 +83,9 @@
         font-weight: 400;
         letter-spacing: 0%;
         text-align: center;
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
   }

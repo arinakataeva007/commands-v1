@@ -15,9 +15,9 @@ namespace Commands_back.Controllers
             return Ok(roles);
         }
         [HttpGet("{id}")]
-        public IActionResult GetRoleById(string name)
+        public IActionResult GetRoleById(Guid id)
         {
-            var user = _roleService.GetRoleById(name);
+            var user = _roleService.GetRoleById(id);
             return Ok(user);
         }
         [HttpPost]

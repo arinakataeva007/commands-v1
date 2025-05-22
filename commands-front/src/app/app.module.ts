@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FunctionalModule } from './moduls/functional.modul';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
@@ -10,23 +10,28 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { AddProjectModalComponent } from './modal-windows/add-project-modal/add-project-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './services/project.service';
+import { RolesService } from './services/roles.service.ts.service';
+import { ProjectPageComponent } from './pages/project-page/project-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomePageComponent,
     HomeComponent,
-    NavigationComponent,
     AddProjectModalComponent,
+    ProjectPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NavigationComponent,
+    FunctionalModule
   ],
-  providers: [ProjectService],
+  providers: [ProjectService, RolesService],
+  exports:[],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

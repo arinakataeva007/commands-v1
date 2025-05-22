@@ -38,6 +38,9 @@
       line-height: 19px;
       text-transform: uppercase;
       text-align: center;
+      &:hover {
+        transform: scale(1.05);
+      }
     }
     .navigation__btn {
       border: 2px solid rgb(106, 79, 169);
@@ -45,6 +48,9 @@
       background: transparent;
       box-sizing: border-box;
       padding: 7.5px;
+      &:hover {
+        transform: scale(1.05);
+      }
       img {
         box-sizing: border-box;
         max-width: 35px;

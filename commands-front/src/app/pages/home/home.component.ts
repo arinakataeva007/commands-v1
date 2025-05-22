@@ -3,14 +3,26 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap, take, tap } from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import {
+  BehaviorSubject,
+  forkJoin,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+} from 'rxjs';
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
+import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
+import { IRole } from 'src/app/models/responce/role-responce.models';
 import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { RolesService } from 'src/app/services/roles.service.ts.service';
 
 @Component({
   selector: 'app-home',
@@ -18,14 +30,16 @@ import { ProjectService } from 'src/app/services/project.service';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthorizationService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private rolesService: RolesService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;
       this.authService
@@ -33,12 +47,37 @@ export class HomeComponent {
         .pipe(take(1))
         .subscribe((data) => {
           this.userInfo = data as IUser;
+          if (data.projectsId && data.projectsId.length > 0) {
+            data.projectsId.forEach((projId) => {
+              this.projectService
+                .getProjectInfoById(projId)
+                .pipe(take(1))
+                .subscribe((project) => {
+                  const current = this.userProjects$$.value;
+                  if (project.projectRoles?.length) {
+                    forkJoin(
+                      project.projectRoles.map((roleId) =>
+                        this.rolesService.getRoleNameById(roleId).pipe(take(1))
+                      )
+                    ).subscribe((roleNames: string[]) => {
+                      this.projectRolesMap[project.id] = roleNames;
+                      this.cdr.markForCheck();
+                    });
+                  }
+
+                  this.userProjects$$.next([...current, project]);
+                });
+            });
+          }
         });
     });
   }
 
   protected userId!: string;
   protected userInfo!: IUser;
+  private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
+  protected userProjects$ = this.userProjects$$.asObservable();
+  protected projectRolesMap: Record<string, string[]> = {};
   protected addingProject = false;
 
   private cdr = inject(ChangeDetectorRef);
@@ -49,6 +88,10 @@ export class HomeComponent {
 
   protected closeModal() {
     this.addingProject = false;
+  }
+
+  protected async goToProject(projId:string){
+    await this.router.navigate(['/projectPage', projId])
   }
 
   protected saveProject(event: IProjectRequest): void {
@@ -63,20 +106,61 @@ export class HomeComponent {
             this.userInfo.projectsId = [];
           }
 
+          if (!this.userInfo.rolesId) {
+            this.userInfo.rolesId = [];
+          }
+
           if (!this.userInfo.projectsId.includes(project.id)) {
             this.userInfo.projectsId.push(project.id);
           }
-          console.log(this.userInfo);
-          return this.authService.updateUserInfo(this.userInfo);
-        }),
+          const requestUser: IUpdateUserInfo = {
+            userId: this.userId,
+            rolesId: [
+              ...this.userInfo.rolesId!,
+              project.projectRoles![project.projectRoles!.length - 1],
+            ],
+            projectsId: this.userInfo.projectsId,
+          };
+          if (project.projectRoles?.length) {
+            forkJoin(
+              project.projectRoles.map((roleId) =>
+                this.rolesService.getRoleNameById(roleId).pipe(take(1))
+              )
+            ).subscribe((roleNames: string[]) => {
+              this.projectRolesMap[project.id] = roleNames;
+              this.cdr.markForCheck();
+            });
+          }
+
+          return this.authService.updateUserInfo(requestUser);
+        })
       )
       .subscribe({
-        next: (response) => {
+        next: (response: IUser) => {
           console.log('User info updated successfully', response);
+          this.userInfo = response;
+          this.updateProjects(response.projectsId);
         },
         error: (err) => {
-          console.error('Error occurred:', err);
+          console.error('Error occurred:', err.error.errors);
         },
       });
+  }
+
+  private updateProjects(projectsId: string[] | undefined) {
+    if (!projectsId) return;
+
+    projectsId.forEach((projId) => {
+      this.projectService
+        .getProjectInfoById(projId)
+        .pipe(take(1))
+        .subscribe((project) => {
+          const current = this.userProjects$$.value;
+          const exists = current.some((usPr) => usPr.id === projId);
+          if (!exists) {
+            this.userProjects$$.next([...current, project]);
+          }
+        });
+    });
   }
 }

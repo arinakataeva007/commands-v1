@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap, map } from 'rxjs';
 import { IUser, ICheckser } from '../models/responce/user-responce.models';
+import { IUpdateUserInfo } from '../models/request/user-request.models';
 
 @Injectable()
 export class AuthorizationService {
@@ -10,30 +11,32 @@ export class AuthorizationService {
   constructor(private http: HttpClient) {}
 
   public createUser(userInfo: IUser): Observable<string> {
-    return this.http.post<{ id: string }>(this.apiUrl, userInfo).pipe(
-      map(res => res.id)
-    );
+    return this.http
+      .post<{ id: string }>(this.apiUrl, userInfo)
+      .pipe(map((res) => res.id));
   }
 
   public checkUser(userInfo: ICheckser): Observable<{ uid: string }> {
-    console.log(userInfo);
     return this.http.post<{ uid: string }>(`${this.apiUrl}/login`, userInfo);
   }
 
   public getUser(userId: string): Observable<IUser> {
     return this.http.get<IUser>(`${this.apiUrl}/${userId}`);
   }
-/**
- * Метод для обновления полей в информации о пользователе
- * @param userChangesFields объект пользователя с обновленными полями
- * @returns 
- */
-  public updateUserInfo(userChangesFields: IUser): Observable<any> {
+  /**
+   * Метод для обновления полей в информации о пользователе
+   * @param userChangesFields объект пользователя с обновленными полями
+   * @returns
+   */
+  public updateUserInfo(userChangesFields: IUpdateUserInfo): Observable<any> {
     return this.getUser(userChangesFields.userId!).pipe(
-      switchMap(currentUser => {
+      switchMap((currentUser) => {
         const updatedFields: any = {};
-        Object.keys(userChangesFields).forEach(key => {
-          if (userChangesFields[key] && userChangesFields[key] !== currentUser[key]) {
+        Object.keys(userChangesFields).forEach((key) => {
+          if (
+            userChangesFields[key] &&
+            userChangesFields[key] !== currentUser[key]
+          ) {
             updatedFields[key] = userChangesFields[key];
           }
         });
@@ -42,7 +45,10 @@ export class AuthorizationService {
           return of({ message: 'Изменений не обнаружено.' });
         }
 
-        return this.http.put(`${this.apiUrl}/${userChangesFields.userId}`, updatedFields);
+        return this.http.put(
+          `${this.apiUrl}/${userChangesFields.userId}`,
+          updatedFields
+        );
       })
     );
   }

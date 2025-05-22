@@ -26,6 +26,9 @@
           padding: 35px 20px 28px 64px;
           width: 100%;
           min-width: 400px;
+          color: black;
+          font-size: 20px;
+          font-weight: 400;
           &::placeholder {
             color: rgba(31, 0, 97, 0.3);
 
@@ -60,6 +63,9 @@
           rgb(41, 0, 127) 12.596%,
           rgb(122, 59, 255) 84.107%
         );
+        &:hover {
+            transform: scale(1.05);
+          }
       }
     }
     .logIn-title {
@@ -138,6 +144,9 @@
           text-align: center;
           text-transform: uppercase;
           background: rgb(255, 255, 255);
+          &:hover {
+            transform: scale(1.05);
+          }
         }
       }
     }

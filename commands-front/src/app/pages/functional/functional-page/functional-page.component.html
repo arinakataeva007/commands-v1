@@ -1,0 +1,40 @@
+<app-navigation [inUser]="true"></app-navigation>
+<main class="func_main">
+  <section class="main__center-section">
+    <div class="main-center__left">
+      <div class="section-back posts">
+        <div class="posts-title-container">
+          <h3 class="posts__title">ПРОЕКТЫ</h3>
+          <button class="posts-arrow btn">
+            <img
+              class="arrow-icon"
+              src="../../../../assets/func_arrow.svg"
+              width="30px"
+              height="30px"
+            />
+          </button>
+        </div>
+
+        <div class="posts-gallery">
+          <div class="post-crad" *ngFor="let project of projects$ | async">
+            <h3 class="post-crad__title">{{project.projectName}}</h3>
+            <div class="post-crad__info">
+              <div class="info__roles">
+                <p class="roles-title">Роли в проекте:</p>
+                <ul class="roles-list">
+                  <li *ngFor="let role of projectRolesMap[project.id] || []" class="role-item">{{ role }}</li>
+                </ul>
+              </div>
+              <div class="info__desc"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-back early-look">
+      <h3 class="early-look__title">недавно смотрели</h3>
+      <div class="early-look__posts-container"></div>
+    </div>
+  </section>
+</main>
