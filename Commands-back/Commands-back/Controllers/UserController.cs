@@ -1,7 +1,8 @@
-using Commands_back.Models.ResponceModels;
+using Commands_back.Models.ResponseModels;
+using Commands_back.Models.interfaces;
+using Commands_back.Models.RequestModels;
 using Commands_back.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Commands_back.Controllers
 {
@@ -26,15 +27,25 @@ namespace Commands_back.Controllers
             return Ok(user);
         }
         [HttpPost]
-        public IActionResult CreateUser([FromBody] CreateUserResponce request)
+        public IActionResult CreateUser([FromBody] CreateUserResponse request)
         {
             if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Email))
             {
                 return BadRequest("Имя и Почта должны быть заполнены");
             }
-            
             var hashedPassword = _hasher.HashPassword(new Models.User{Password = request.Password, Email = request.Email,UserName = request.Name}, request.Password);
-            var userId = _userService.CreatUser(request.Name, request.Email, hashedPassword, request.Description, request.RolesId, request.UserIconUrl, request.ProjectsId);
+            var requestUser = new CreateUserRequest
+            {
+                Name = request.Name,
+                Email = request.Email,
+                Password = hashedPassword,
+                RolesId = request.RolesId,
+                Description = request.Description,
+                UserIconUrl = request.UserIconUrl,
+                ProjectsId = request.ProjectsId
+
+            };
+            var userId = _userService.CreatUser(requestUser);
             return CreatedAtAction(nameof(GetUserById), new { id = userId }, new { id = userId });
         }
 
@@ -45,35 +56,31 @@ namespace Commands_back.Controllers
         }
         
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserResponce dto)
+        public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserResponse Response)
         {
-            try
+            var updatedUser = new UpdateUserRequest
             {
-                var updatedUser = _userService.UpdateUserInfo(
-                    id,
-                    dto.UserName,
-                    dto.Email,
-                    dto.Password,
-                    dto.Description,
-                    dto.RolesId,
-                    dto.UserIconUrl,
-                    dto.ProjectsId
-                );
+                UserId = id,
+                RolesId = Response.RolesId,
+                Description = Response.Description,
+                UserIconUrl = Response.UserIconUrl,
+                ProjectsId = Response.ProjectsId,
+                Password = Response.Password,
+                Email = Response.Email,
+                UserName = Response.UserName
+            };
+            var result = _userService.UpdateUserInfo(
+                updatedUser
+            );
 
-                return Ok(updatedUser);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return NotFound(new { message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Произошла ошибка при обновлении пользователя", error = ex.Message });
-            }
+            if (result == null)
+                return NotFound(new { message = "Пользователь не найден или обновление не удалось" });
+
+            return Ok(result);
         }
         
         [HttpPost("login")]
-        public IActionResult CheckUserInfo([FromBody] CheckUserInfoResponce request)
+        public IActionResult CheckUserInfo([FromBody] CheckUserInfoResponse request)
         {
             var user = _userService.GetUserByEmail(request.Email);
             if (user == null)

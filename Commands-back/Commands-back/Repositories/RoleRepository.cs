@@ -1,15 +1,8 @@
 using Commands_back.Data;
 using Commands_back.Models;
+using Commands_back.Models.interfaces;
 
 namespace Commands_back.Repositories;
-
-public interface IRoleRepository
-{
-    List<Role> GetAllRoles();
-    Role GetRoleById(Guid id);
-    string CreateRole(string name);
-    void DeleteRole(string name);
-}
 public class RoleRepository(AppDbContext context) : IRoleRepository
 {
     private readonly AppDbContext _context = context;

@@ -1,6 +1,6 @@
-namespace Commands_back.Models.ResponceModels;
+namespace Commands_back.Models.ResponseModels;
 
-public class UpdateProjectResponce
+public class UpdateProjectResponse
 {
     public required Guid Id { get; set; }
     public Guid? Author { get; set; }
@@ -9,7 +9,7 @@ public class UpdateProjectResponce
     public Guid[]? ProjectMembers { get; set; }
 }
 
-public class CreateProjectResponce
+public class CreateProjectResponse
 {
     public Guid Author { get; set; }
     public string ProjectName { get; set; }

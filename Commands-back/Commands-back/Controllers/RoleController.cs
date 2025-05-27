@@ -1,4 +1,4 @@
-using Commands_back.Services;
+using Commands_back.Models.interfaces;
 using Microsoft.AspNetCore.Mvc;
 namespace Commands_back.Controllers
 {

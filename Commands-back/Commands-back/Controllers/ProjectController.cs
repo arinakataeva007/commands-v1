@@ -1,5 +1,6 @@
-using Commands_back.Models.ResponceModels;
-using Commands_back.Services;
+using Commands_back.Models.ResponseModels;
+using Commands_back.Models.interfaces;
+using Commands_back.Models.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Commands_back.Controllers;
@@ -25,15 +26,31 @@ public class ProjectController(IProjectService projectService) : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public void UpdateProjectInfo([FromBody] UpdateProjectResponce request)
+    public void UpdateProjectInfo([FromBody] UpdateProjectResponse request)
     {
-        _projectService.UpdateProjectInfo(request.Id, request.Author, request.ProjectName, request.ProjectDescreption, request.ProjectMembers);
+        var newProject = new UpdateProjectRequest
+        {
+            Id = request.Id,
+            ProjectName = request.ProjectName,
+            Author = request.Author,
+            ProjectDescreption = request.ProjectDescreption,
+            ProjectMembers = request.ProjectMembers,
+        };
+        _projectService.UpdateProjectInfo(newProject);
     }
 
     [HttpPost]
-    public IActionResult CreateProject([FromBody] CreateProjectResponce request)
+    public IActionResult CreateProject([FromBody] CreateProjectResponse request)
     {
-        var id = _projectService.CreatProject(request.Author, request.ProjectName, request.ProjectDescreption, request.ProjectMembers, request.ProjectRoles);
+        var project = new CreateProjectRequest
+        {
+            ProjectName = request.ProjectName,
+            ProjectDescreption = request.ProjectDescreption,
+            ProjectMembers = request.ProjectMembers,
+            Author = request.Author,
+            ProjectRoles = request.ProjectRoles
+        };
+        var id = _projectService.CreatProject(project);
         return Ok(id);
     } 
 

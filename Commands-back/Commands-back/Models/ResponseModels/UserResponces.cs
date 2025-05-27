@@ -1,6 +1,6 @@
-namespace Commands_back.Models.ResponceModels;
+namespace Commands_back.Models.ResponseModels;
 
-public class CreateUserResponce
+public class CreateUserResponse
 {
     public required string Name { get; set; }
     public required string Email { get; set; }
@@ -10,13 +10,13 @@ public class CreateUserResponce
     public Guid[] RolesId { get; set; } = [];
     public Guid[] ProjectsId { get; set; }
 }
-public class CheckUserInfoResponce
+public class CheckUserInfoResponse
 {
     public required string Email { get; set; }
     public required string Password { get; set; }
 }
 
-public class UpdateUserResponce
+public class UpdateUserResponse
 {
     public Guid UserId { get; set; }
     public string? UserName { get; set; }

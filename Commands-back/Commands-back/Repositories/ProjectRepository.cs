@@ -1,15 +1,9 @@
 using Commands_back.Data;
 using Commands_back.Models;
+using Commands_back.Models.RequestModels;
 
 namespace Commands_back.Repositories;
-public interface IProjectRepository
-{
-    List<Project> GetAllProjects();
-    Project GetProjectById(Guid id);
-    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[]? projectRoles);
-    void DeleteProject(Guid id);
-    void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers);
-}
+using Commands_back.Models.interfaces;
 public class ProjectRepository(AppDbContext context) : IProjectRepository
 {
     private readonly AppDbContext _context = context;
@@ -23,16 +17,16 @@ public class ProjectRepository(AppDbContext context) : IProjectRepository
         return _context.Projects.FirstOrDefault(project => project.Id == id) ?? throw new InvalidOperationException();
     }
 
-    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[] projectRoles)
+    public Guid CreatProject(CreateProjectRequest request)
     {
         var newProject = new Project
         {
             Id = Guid.NewGuid(),
-            ProjectName = projectName,
-            ProjectDescription = projectDescription,
-            ProjectMembersId = projectMembers,
-            Author = author,
-            ProjectRoles = projectRoles
+            ProjectName = request.ProjectName,
+            ProjectDescription = request.ProjectDescreption,
+            ProjectMembersId = request.ProjectMembers,
+            Author = request.Author,
+            ProjectRoles = request.ProjectRoles,
         };
         _context.Projects.Add(newProject);
         _context.SaveChanges();
@@ -52,15 +46,15 @@ public class ProjectRepository(AppDbContext context) : IProjectRepository
         _context.SaveChanges();
     }
 
-    public void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers)
+    public void UpdateProjectInfo(UpdateProjectRequest request)
     {
-        var project = _context.Projects.FirstOrDefault(p => p.Id == id);
+        var project = _context.Projects.FirstOrDefault(p => p.Id == request.Id);
         if (project == null) return;
 
-        if (!string.IsNullOrEmpty(projectName)) project.ProjectName = projectName;
-        if (author.HasValue) project.Author = author.Value;
-        if (!string.IsNullOrEmpty(projectDescreption)) project.ProjectDescription = projectDescreption;
-        if (projectMembers != null && projectMembers.Length > 0)  project.ProjectMembersId = projectMembers;
+        if (!string.IsNullOrEmpty(request.ProjectName)) project.ProjectName = request.ProjectName;
+        if (request.Author.HasValue) project.Author = request.Author.Value;
+        if (!string.IsNullOrEmpty(request.ProjectDescreption)) project.ProjectDescription = request.ProjectDescreption;
+        if (request.ProjectMembers != null && request.ProjectMembers.Length > 0)  project.ProjectMembersId = request.ProjectMembers;
 
         _context.Projects.Update(project);
         _context.SaveChanges();

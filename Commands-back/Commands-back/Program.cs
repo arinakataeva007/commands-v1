@@ -1,5 +1,6 @@
 using Commands_back.Data;
 using Commands_back.Repositories;
+using Commands_back.Models.interfaces;
 using Commands_back.Services;
 
 using Microsoft.EntityFrameworkCore;
