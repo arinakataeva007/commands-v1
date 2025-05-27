@@ -1,0 +1,13 @@
+<div class="dropdown-container" (clickOutside)="closeDropdown()">
+  <div class="dropdown-header" (click)="toggleDropdown()">
+    {{ placeholder }}
+    <img class="arrow" src="../../../../assets/arrow_down.svg" [class.open]="isOpen" width="20px" height="20px">
+  </div>
+
+  <ul class="dropdown-list" *ngIf="isOpen">
+    <li *ngFor="let role of roles$ | async" (click)="toggleSelection(role.id)">
+      <input type="checkbox" [checked]="isSelected(role.id)" />
+      <label>{{ role.rolesName }}</label>
+    </li>
+  </ul>
+</div>

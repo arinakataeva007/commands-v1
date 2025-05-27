@@ -11,14 +11,12 @@
     <form [formGroup]="projectForm" class="main__form">
         <input class="name-project-controll" placeholder="Название проекта" [formControlName]="'name'" >
         <textarea class="descreption-controll" placeholder="Описание" [formControlName]="'descreption'" ></textarea>
-        <select class="role-select" [formControlName]="'authorRole'">
-          <option [value]="" selected disabled hidden>Выберите свою роль</option>
-          <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
-        </select>
-        <select class="role-select" [formControlName]="'otherRoles'">
+        <app-dropdown (selectionChange)="updateAuthorField($event)"></app-dropdown>
+        <app-dropdown (selectionChange)="updateOtherRoleField($event)"></app-dropdown>
+        <!-- <select class="role-select" [formControlName]="'otherRoles'">
           <option [value]="" selected disabled hidden>Выберите необходимые роли</option>
           <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
-        </select>
+        </select> -->
         <!-- TODO: скрыто до реализации бэкенда -->
         <!-- <div class="datetime-container">
             <h3 class="datetime-container__title">Сроки проекта</h3>

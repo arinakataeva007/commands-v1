@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectService } from './services/project.service';
 import { RolesService } from './services/roles.service.ts.service';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
-
+import { DropdownMultiSelectComponent } from 'src/app/components/UI/dropdown/dropdown.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +20,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
     HomeComponent,
     AddProjectModalComponent,
     ProjectPageComponent,
+    DropdownMultiSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,7 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
     FormsModule, 
     ReactiveFormsModule,
     NavigationComponent,
-    FunctionalModule
+    FunctionalModule,
   ],
   providers: [ProjectService, RolesService],
   exports:[],
