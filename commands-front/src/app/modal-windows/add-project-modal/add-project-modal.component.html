@@ -4,7 +4,7 @@
       <p class="nav-logo__parag">Commands</p>
       <p class="nav-logo__desc">from idea to goal</p>
     </div>
-    <button class="nav__close-btn"><img class="close-btn__img" src="../../../assets/close.svg" width="15.52px" height="15.18px" ></button>
+    <button class="nav__close-btn" (click)="onCloseClick.emit()"><img class="close-btn__img" src="../../../assets/close.svg" width="15.52px" height="15.18px" ></button>
   </nav>
   <main class="add-project__main">
     <h1 class="main__title">Создать проект</h1>
@@ -12,10 +12,12 @@
         <input class="name-project-controll" placeholder="Название проекта" [formControlName]="'name'" >
         <textarea class="descreption-controll" placeholder="Описание" [formControlName]="'descreption'" ></textarea>
         <select class="role-select" [formControlName]="'authorRole'">
-          <option [value]="'Developer'">Developer</option>
+          <option [value]="" selected disabled hidden>Выберите свою роль</option>
+          <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
         </select>
         <select class="role-select" [formControlName]="'otherRoles'">
-          <option [value]="'Developer'">Developer</option>
+          <option [value]="" selected disabled hidden>Выберите необходимые роли</option>
+          <option *ngFor="let role of roles$ | async" [value]="role.id">{{role.rolesName}}</option>
         </select>
         <!-- TODO: скрыто до реализации бэкенда -->
         <!-- <div class="datetime-container">

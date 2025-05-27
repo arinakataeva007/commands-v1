@@ -1,15 +1,9 @@
 using Commands_back.Models;
-using Commands_back.Repositories;
+using Commands_back.Models.interfaces;
+using Commands_back.Models.RequestModels;
+using Commands_back.Models.ResponseModels;
 
 namespace Commands_back.Services;
-public interface IProjectService
-{
-    List<Project> GetAllProjects();
-    Project GetProjectById(Guid id);
-    Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[]? projectRoles);
-    void DeleteProject(Guid id);
-    void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers);
-}
 public class ProjectService(IProjectRepository projectRepository) : IProjectService
 {
     private readonly IProjectRepository _prRepository = projectRepository;
@@ -23,9 +17,9 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         return _prRepository.GetProjectById(id);
     }
 
-    public Guid CreatProject(Guid author, string projectName, string? projectDescription, Guid[] projectMembers, string[] projectRoles)
+    public Guid CreatProject(CreateProjectRequest request)
     {
-        return _prRepository.CreatProject(author, projectName, projectDescription, projectMembers, projectRoles);
+        return _prRepository.CreatProject(request);
     }
 
     public void DeleteProject(Guid id)
@@ -33,8 +27,8 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         _prRepository.DeleteProject(id);
     }
 
-    public void UpdateProjectInfo(Guid id, Guid? author, string? projectName, string? projectDescreption, Guid[]? projectMembers)
+    public void UpdateProjectInfo(UpdateProjectRequest request)
     {
-        _prRepository.UpdateProjectInfo(id, author, projectName, projectDescreption, projectMembers);
+        _prRepository.UpdateProjectInfo(request);
     }
 }

@@ -1,25 +1,10 @@
 using Commands_back.Models;
+using Commands_back.Models.interfaces;
 using Commands_back.Data;
+using Commands_back.Models.RequestModels;
+
 namespace Commands_back.Repositories;
 
-public interface IUserRepository
-{
-    List<User> GetAllUsers();
-    User GetUserById(Guid id);
-
-    Guid CreatUser(string? name, string? email, string? password, string? description = "", Guid[]? rolesId = null,
-        string? pathIcon = null, Guid[]? projectId = null);
-
-    void DeleteUser(Guid id);
-
-    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
-        string? description, Guid[]? rolesId,
-        string? pathIcon, Guid[]? projectsId);
-
-    Guid CheckUserInfo(string email, string passwrd);
-    
-    User GetUserByEmail(string email);
-}
 public class UserRepository(AppDbContext context) : IUserRepository
 {
     private readonly AppDbContext _context = context;
@@ -33,19 +18,18 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return _context.Users.FirstOrDefault(user => user.UserId == id) ?? throw new InvalidOperationException();
     }
     
-    public Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
-        string? pathIcon, Guid[]? projectsId)
+    public Guid CreatUser(CreateUserRequest request)
     {
         var newUser = new User
         {
             UserId = Guid.NewGuid(),
-            UserName = name,
-            Email = email,
-            Password = password,
-            Description = description,
-            UserIconUrl = pathIcon,
-            RolesId = rolesId,
-            ProjectsId = projectsId
+            UserName = request.Name,
+            Email = request.Email,
+            Password = request.Password,
+            Description = request.Description,
+            UserIconUrl = request.UserIconUrl,
+            RolesId = request.RolesId,
+            ProjectsId = request.ProjectsId
         };
         _context.Users.Add(newUser);
         _context.SaveChanges();
@@ -75,20 +59,29 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return user.UserId;
     }
 
-    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description, Guid[]? rolesId,
-        string? pathIcon, Guid[]? projectsId)
+    public User? UpdateUserInfo(UpdateUserRequest request)
     {
-        var user = _context.Users.FirstOrDefault(u => u.UserId == id);
-        if (user == null) return;
-        if (!string.IsNullOrEmpty(name)) user.UserName = name;
-        if (!string.IsNullOrEmpty(email)) user.Email = email;
-        if (!string.IsNullOrEmpty(password)) user.Password = password;
-        if (!string.IsNullOrEmpty(description) && description != "") user.Description = description;
-        if (!string.IsNullOrEmpty(pathIcon) && pathIcon != "") user.UserIconUrl = pathIcon;
-        if (projectsId != null) user.ProjectsId = projectsId;
+        var user = _context.Users.FirstOrDefault(u => u.UserId == request.UserId);
+        if (user == null)
+        {
+            return null;
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.UserName)) user.UserName = request.UserName;
+        if (!string.IsNullOrWhiteSpace(request.Email)) user.Email = request.Email;
+        if (!string.IsNullOrWhiteSpace(request.Password)) user.Password = request.Password;
+        if (!string.IsNullOrWhiteSpace(request.Description)) user.Description = request.Description;
+        if (request.RolesId != null && request.RolesId.Length > 0) user.RolesId = request.RolesId;
+        if (!string.IsNullOrWhiteSpace(request.UserIconUrl)) user.UserIconUrl = request.UserIconUrl;
+        if (request.ProjectsId != null && request.ProjectsId.Length > 0) user.ProjectsId = request.ProjectsId;
+
         _context.Users.Update(user);
         _context.SaveChanges();
+
+        return user;
     }
+
+
 
     public User GetUserByEmail(string email)
     {

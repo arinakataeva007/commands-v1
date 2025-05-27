@@ -52,10 +52,15 @@ namespace Commands_back.Migrations
 
             modelBuilder.Entity("Commands_back.Models.Role", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
                     b.Property<string>("RolesName")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("RolesName");
+                    b.HasKey("Id");
 
                     b.ToTable("Roles");
                 });

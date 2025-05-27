@@ -1,23 +1,8 @@
 using Commands_back.Models;
-using Commands_back.Repositories;
+using Commands_back.Models.interfaces;
+using Commands_back.Models.RequestModels;
+
 namespace Commands_back.Services;
-
-public interface IUserService
-{
-    List<User> GetAllUsers();
-    User GetUserById(Guid id);
-
-    Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
-        string? pathIcon, Guid[]? projectId);
-
-    void UpdateUserInfo(Guid id, string? name, string? email, string? password,
-        string? description, Guid[]? rolesId,
-        string? pathIcon, Guid[]? projectsId);
-    
-    void DeleteUser(Guid id); 
-    Guid CheckUserInfo(string email, string passwrd);
-    User GetUserByEmail(string email);
-}
 public class UserService(IUserRepository userRepository): IUserService
 {
     private readonly IUserRepository _userRepository = userRepository;
@@ -32,16 +17,14 @@ public class UserService(IUserRepository userRepository): IUserService
         return _userRepository.GetUserById(id);
     }
 
-    public Guid CreatUser(string name, string email, string password, string? description, Guid[]? rolesId,
-        string pathIcon, Guid[]? projectId)
+    public Guid CreatUser(CreateUserRequest request)
     {
-        return _userRepository.CreatUser(name, email, password, description, rolesId, pathIcon, projectId);
+        return _userRepository.CreatUser(request);
     }
 
-    public void UpdateUserInfo(Guid id, string? name, string? email, string? password, string? description,
-        Guid[]? rolesId, string? pathIcon, Guid[]? projectId)
+    public User? UpdateUserInfo(UpdateUserRequest request)
     {
-        _userRepository.UpdateUserInfo(id, name, email, password, description, rolesId, pathIcon, projectId);
+        return _userRepository.UpdateUserInfo(request);
     }
     public void DeleteUser(Guid id)
     {

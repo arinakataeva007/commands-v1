@@ -1,15 +1,8 @@
 using Commands_back.Models;
+using Commands_back.Models.interfaces;
 using Commands_back.Repositories;
 
 namespace Commands_back.Services;
-
-public interface IRoleService
-{
-    List<Role> GetAllRoles();
-    Role GetRoleById(string name);
-    string CreateRole(string name);
-    void DeleteRole(string name);
-}
 public class RoleService(IRoleRepository roleRepository) : IRoleService
 {
     private readonly IRoleRepository _roleRepository = roleRepository;
@@ -18,9 +11,9 @@ public class RoleService(IRoleRepository roleRepository) : IRoleService
         return _roleRepository.GetAllRoles();
     }
 
-    public Role GetRoleById(string name)
+    public Role GetRoleById(Guid id)
     {
-        return _roleRepository.GetRoleByName(name);
+        return _roleRepository.GetRoleById(id);
     }
 
     public string CreateRole(string name)

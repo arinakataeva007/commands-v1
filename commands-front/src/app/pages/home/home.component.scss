@@ -49,9 +49,73 @@
             flex-direction: column;
             padding: 30px 0px 30px 30px;
             .posts-gallery {
+              display: flex;
+              gap: 10px;
               width: 95%;
               height: 200px;
               margin-bottom: 10px;
+              overflow-y: hidden;
+              overflow-x: auto;
+              &::-webkit-scrollbar {
+                height: 3px;
+              }
+              &::-webkit-scrollbar-thumb {
+                border-radius: 1000px;
+                background: rgb(129, 102, 193);
+                border: 1px solid rgb(129, 102, 193);
+              }
+              &::-webkit-scrollbar-track {
+                border-radius: 4px;
+                background: rgb(255, 255, 255);
+                border-style: none;
+              }
+              .post-crad {
+                box-sizing: border-box;
+                border: 2px solid rgb(106, 79, 169);
+                border-radius: 20px;
+                padding: 10px 10px 10px 10px;
+                background: rgb(255, 255, 255);
+                width: 280px;
+                height: 90%;
+                .info__roles {
+                  margin-bottom: 5px;
+                  .roles-title {
+                    margin: 0;
+                    display: block;
+                    width: fit-content;
+                    border-bottom: 1px solid rgb(106, 79, 169);
+                  }
+                  .roles-list {
+                    list-style: none;
+                    padding: 0;
+                    margin-top: 10px;
+                    margin-left: 20px;
+                    margin-bottom: 0;
+                    .role-item {
+                      margin: 0;
+                      color: rgb(31, 0, 97);
+                    }
+                  }
+                }
+
+                &__title {
+                  color: rgb(31, 0, 97);
+                  font-family: Lato;
+                  font-size: 16px;
+                  font-weight: 700;
+                  line-height: 19px;
+                  letter-spacing: 10%;
+                  text-align: center;
+                  text-transform: uppercase;
+                }
+                .info__desc {
+                  max-width: 93%;
+                  margin-top: 0;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                }
+              }
             }
             .posts__title {
               color: rgb(31, 0, 97);
@@ -62,8 +126,8 @@
               text-transform: uppercase;
             }
             .posts__add-btn {
-              width: 80px;
-              height: 80px;
+              width: 60px;
+              height: 60px;
               border-radius: 40px;
               border: none;
               box-shadow: inset 0px 0px 24px 0px rgb(219, 202, 255);
@@ -74,6 +138,9 @@
               );
               margin-left: auto;
               margin-right: 30px;
+              &:hover {
+            transform: scale(1.05);
+          }
             }
           }
           &.profile {
@@ -95,7 +162,7 @@
                 border: 2px solid rgb(106, 79, 169);
                 border-radius: 40px;
                 margin-right: 30px;
-                .profile__img{
+                .profile__img {
                   border-radius: 40px;
                 }
               }
@@ -139,6 +206,9 @@
               text-decoration: underline;
               margin-top: 170px;
               margin-right: 30px;
+              &:hover {
+            transform: scale(1.05);
+          }
             }
           }
         }
@@ -168,7 +238,7 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
   }
-  app-add-project-modal{
+  app-add-project-modal {
     position: absolute;
     width: 30%;
     top: 0%;
