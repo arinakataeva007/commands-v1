@@ -12,20 +12,37 @@
               width="200px"
               height="200px"
             />
+            <input appCheckDownload *ngIf="editMode" class="upload-input" type="file" (fileLoaded)="onFileLoaded($event)">
           </div>
           <div class="profile__info-container">
             <h3 class="profile-title">{{ userInfo.userName }}</h3>
-            <div class="info-container__desc">
+            <div *ngIf="!editMode" class="info-container__desc">
               {{ userInfo.description }}
             </div>
+            <textarea *ngIf="editMode" class="info-container__desc-edit">
+ {{ userInfo.description }}</textarea
+            >
           </div>
         </div>
-        <a [routerLink]="" class="profile__edit-btn">Редактировать</a>
+        <button
+          *ngIf="!editMode"
+          class="profile__edit-btn"
+          (click)="editMode = true"
+        >
+          Редактировать
+        </button>
+        <button *ngIf="editMode" class="profile__edit-btn" (click)="endEdit()">
+          Сохранить
+        </button>
       </div>
       <div class="section-back posts">
         <h3 class="posts__title">Публикации</h3>
         <div class="posts-gallery">
-          <div class="post-crad" *ngFor="let project of userProjects$ | async" (click)="goToProject(project.id)">
+          <div
+            class="post-crad"
+            *ngFor="let project of userProjects$ | async"
+            (click)="goToProject(project.id)"
+          >
             <h3 class="post-crad__title">{{ project.projectName }}</h3>
             <div class="post-crad__info">
               <div class="info__roles">

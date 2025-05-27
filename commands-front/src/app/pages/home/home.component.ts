@@ -5,6 +5,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import {
   BehaviorSubject,
@@ -37,7 +38,12 @@ export class HomeComponent implements OnInit {
     private authService: AuthorizationService,
     private projectService: ProjectService,
     private rolesService: RolesService
-  ) {}
+  ) {
+    this.editingForm = new FormGroup({
+      description: new FormControl(),
+      userIconUrl: new FormControl()
+    });
+  }
 
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -79,7 +85,9 @@ export class HomeComponent implements OnInit {
   protected userProjects$ = this.userProjects$$.asObservable();
   protected projectRolesMap: Record<string, string[]> = {};
   protected addingProject = false;
+  protected editMode = false;
 
+  private editingForm: FormGroup;
   private cdr = inject(ChangeDetectorRef);
 
   protected async addProject() {
@@ -92,6 +100,14 @@ export class HomeComponent implements OnInit {
 
   protected async goToProject(projId:string){
     await this.router.navigate(['/projectPage', projId])
+  }
+
+  protected endEdit(){
+    this.editMode = false;
+  }
+
+  protected onFileLoaded(event: File){
+    console.log(event, 'file');
   }
 
   protected saveProject(event: IProjectRequest): void {
