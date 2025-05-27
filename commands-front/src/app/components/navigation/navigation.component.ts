@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   @Input() fromUser = false;
   @Input() inUser = false;
+  @Input() userIdFromProject = '';
   @Output() onAddClick = new EventEmitter();
 
   constructor(private router: Router, private rout: ActivatedRoute){}
@@ -28,8 +29,10 @@ export class NavigationComponent implements OnInit {
     }
   }
   protected goToUserPage(){
-    if(this.userId !== null){
+    if(this.userId !== null && !this.router.url.includes('projectPage')){
       this.router.navigate(['/homepage', this.userId]);
+    }else if(this.router.url.includes('projectPage')){
+      this.router.navigate(['/homepage', this.userIdFromProject]);
     }
   }
 }
