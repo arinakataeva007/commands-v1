@@ -3,10 +3,11 @@ services:
   web:
     build: .
     ports:
-      - "5001:80"
+      - "80:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__Default=Host=db;Port=5432;Database=mydb;Username=postgres;Password=secret
+      - ASPNETCORE_URLS=http://0.0.0.0:5001
+      - ConnectionStrings__Default=Host=db;Port=5432;Database=postgres;User Id=arinakataeva;Password=arinka785;
     depends_on:
       - db
 
