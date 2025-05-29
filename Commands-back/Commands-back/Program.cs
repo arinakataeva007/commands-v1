@@ -34,7 +34,7 @@ builder.Services.AddCors(options =>
 });
 var app = builder.Build(); // app - готовое веб-приложение 
 app.UseHttpsRedirection(); // включение https и маршрутизации
-app.UseCors("AllowFrontend"); 
+app.UseCors(); 
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
