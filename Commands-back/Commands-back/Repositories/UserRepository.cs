@@ -93,25 +93,21 @@ public class UserRepository(AppDbContext context) : IUserRepository
         {
             throw new ArgumentException("User not found");
         }
-
-        // Создаем папку для хранения фото, если ее нет
+        
         var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
         if (!Directory.Exists(uploadsFolder))
         {
             Directory.CreateDirectory(uploadsFolder);
         }
-
-        // Генерируем уникальное имя файла
+        
         var uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
         var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-        // Сохраняем файл
+        
         using (var fileStream = new FileStream(filePath, FileMode.Create))
         {
             photo.CopyTo(fileStream);
         }
 
-        // Обновляем путь к фото в БД
         user.UserIconUrl = $"/uploads/{uniqueFileName}";
         _context.SaveChanges();
 

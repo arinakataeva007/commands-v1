@@ -48,7 +48,6 @@ public class UserService(IUserRepository userRepository): IUserService
             throw new ArgumentException("Photo is required");
         }
 
-        // Проверяем тип файла (можно добавить другие проверки)
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
         var fileExtension = Path.GetExtension(file.FileName).ToLower();
         if (!allowedExtensions.Contains(fileExtension))
