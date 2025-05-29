@@ -22,17 +22,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.WithOrigins("http://158.160.6.209:8080")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
-});
+// builder.Services.AddCors(options =>
+// {
+//     options.AddDefaultPolicy(policy =>
+//     {
+//         policy.WithOrigins("http://158.160.6.209:8080")
+//             .AllowAnyHeader()
+//             .AllowAnyMethod();
+//     });
+// });
 var app = builder.Build(); // app - готовое веб-приложение 
-app.UseCors();
+// app.UseCors();
 app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseRouting(); // вкл систему маршрутизации
 // ReSharper disable once InvalidXmlDocComment
