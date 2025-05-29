@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       userIconUrl: new FormControl()
     });
   }
-  protected photoUrl ='https://localhost:7122/uploads/d71c6f16-b601-441c-91a3-9d8f4d0a49ab__DSC0918.jpg';
+  protected photoUrl ='http://158.160.6.209';
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;
@@ -53,6 +53,8 @@ export class HomeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.userInfo = data as IUser;
+          this.photoUrl = this.photoUrl  + this.userInfo.userIconUrl;
+          console.log(this.photoUrl);
           if (data.projectsId && data.projectsId.length > 0) {
             data.projectsId.forEach((projId) => {
               this.projectService

@@ -33,6 +33,8 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build(); // app - готовое веб-приложение 
+app.UseHttpsRedirection(); // включение https и маршрутизации
+app.UseCors("AllowFrontend"); 
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
@@ -40,8 +42,6 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/uploads"
 });
 
-app.UseHttpsRedirection(); // включение https и маршрутизации
-app.UseCors("AllowFrontend"); 
 app.UseRouting(); // вкл систему маршрутизации
 // ReSharper disable once InvalidXmlDocComment
 
