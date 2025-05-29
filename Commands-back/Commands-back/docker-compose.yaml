@@ -7,7 +7,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://0.0.0.0:5001
-      - ConnectionStrings__Default=Host=db;Port=5432;Database=postgres;User Id=arinakataeva;Password=arinka785;
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=postgres;User Id=arinakataeva;Password=arinka785;
     depends_on:
       - db
 
