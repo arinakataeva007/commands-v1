@@ -24,18 +24,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend",
-        builder =>
-        {
-            builder.WithOrigins("http://158.160.6.209:8080")
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
-        });
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://158.160.6.209:8080")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
-
 var app = builder.Build(); // app - готовое веб-приложение 
-app.UseCors("AllowFrontend");
+app.UseCors();
 app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseRouting(); // вкл систему маршрутизации
 // ReSharper disable once InvalidXmlDocComment
