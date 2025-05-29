@@ -13,7 +13,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     .main__center-section {
       display: flex;
       justify-content: space-between;
@@ -99,7 +98,6 @@
                     }
                   }
                 }
-
                 &__title {
                   color: rgb(31, 0, 97);
                   font-family: Lato;
@@ -141,8 +139,8 @@
               margin-left: auto;
               margin-right: 30px;
               &:hover {
-            transform: scale(1.05);
-          }
+                transform: scale(1.05);
+              }
             }
           }
           &.profile {
@@ -168,9 +166,9 @@
                 .profile__img {
                   border-radius: 40px;
                 }
-                .upload-input{
+                .upload-input {
                   position: absolute;
-                  top:50%;
+                  top: 50%;
                   left: 0;
                 }
               }
@@ -217,8 +215,8 @@
               border: none;
               background: transparent;
               &:hover {
-            transform: scale(1.05);
-          }
+                transform: scale(1.05);
+              }
             }
           }
         }

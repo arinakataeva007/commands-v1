@@ -44,6 +44,7 @@ export class SignInModalComponent {
       name: this.authForm.get('name')?.value,
       email: this.authForm.get('email')?.value,
       password: this.authForm.get('password')?.value,
+      projectsId: []
     };
     this.authService
       .createUser(user)
@@ -51,6 +52,7 @@ export class SignInModalComponent {
       .subscribe({
         next: (userId: string) => {
           this.localStorage.setItem(userId, JSON.stringify(user));
+          this.router.navigate(['/homepage', userId]);
         },
         error: (err) => {
           console.error('Ошибка при регистрации пользователя', err);
