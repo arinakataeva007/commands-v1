@@ -8,7 +8,7 @@ public class CreateUserResponse
     public string Description { get; set; } = "";
     public string UserIconUrl { get; set; } = "";
     public Guid[] RolesId { get; set; } = [];
-    public Guid[] ProjectsId { get; set; } = [];
+    public Guid[]? ProjectsId { get; set; } 
 }
 public class CheckUserInfoResponse
 {
