@@ -25,7 +25,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins("http://158.160.6.209:8080")
             .AllowAnyHeader()
@@ -35,7 +35,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-app.UseCors(); 
+app.UseCors("AllowFrontend"); 
 app.UseRouting();
 app.UseAuthorization(); 
 app.UseStaticFiles(new StaticFileOptions
