@@ -12,14 +12,25 @@
               width="200px"
               height="200px"
             />
-            <input appCheckDownload *ngIf="editMode" class="upload-input" type="file" (fileLoaded)="onFileLoaded($event)">
+            <input
+              appCheckDownload
+              *ngIf="editMode"
+              class="upload-input"
+              type="file"
+              (fileLoaded)="onFileLoaded($event)"
+            />
           </div>
           <div class="profile__info-container">
             <h3 class="profile-title">{{ userInfo.userName }}</h3>
             <div *ngIf="!editMode" class="info-container__desc">
               {{ userInfo.description }}
             </div>
-            <textarea *ngIf="editMode" class="info-container__desc-edit">
+            <textarea
+              *ngIf="editMode"
+              class="info-container__desc-edit"
+              [(ngModel)]="textAreaeDesciption"
+              (change)="onTextAreaInput()"
+            >
  {{ userInfo.description }}</textarea
             >
           </div>

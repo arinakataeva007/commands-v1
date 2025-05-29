@@ -52,4 +52,8 @@ export class AuthorizationService {
       })
     );
   }
+
+  public uploadPhoto(userId:string,fileName: File): Observable<string>{
+    return this.http.post<string>(`${this.apiUrl}/${userId}/photo`, fileName);
+  }
 }

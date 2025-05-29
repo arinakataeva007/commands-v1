@@ -19,7 +19,6 @@ import {
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
 import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
-import { IRole } from 'src/app/models/responce/role-responce.models';
 import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { ProjectService } from 'src/app/services/project.service';
@@ -45,6 +44,9 @@ export class HomeComponent implements OnInit {
     });
   }
   protected photoUrl ='http://158.160.6.209';
+  protected textAreaeDesciption  = '';
+
+  #photoUrl = '';
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;
@@ -106,10 +108,19 @@ export class HomeComponent implements OnInit {
 
   protected endEdit(){
     this.editMode = false;
+    const updateFields: IUpdateUserInfo = {
+      userId: this.userInfo.userId!,
+      description: this.textAreaeDesciption,
+      userIconUrl: this.#photoUrl
+    }
+    console.log(updateFields);
   }
 
   protected onFileLoaded(event: File){
     console.log(event, 'file');
+    this.authService.uploadPhoto(this.userInfo.userId!, event).pipe(take(1)).subscribe(urlPhoto => {
+      this.#photoUrl = urlPhoto;
+    });
   }
 
   protected saveProject(event: IProjectRequest): void {
@@ -163,6 +174,10 @@ export class HomeComponent implements OnInit {
           console.error('Error occurred:', err.error.errors);
         },
       });
+  }
+
+  protected onTextAreaInput(){
+    console.log(this.textAreaeDesciption);
   }
 
   private updateProjects(projectsId: string[] | undefined) {
