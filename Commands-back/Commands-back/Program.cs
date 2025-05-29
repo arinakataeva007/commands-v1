@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build(); // app - готовое веб-приложение 
 // Добавляем сервисы API и Swagger
 builder.Services.AddControllers(); // регистрирует сервисы для api-контроллеров
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -32,9 +33,9 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-var app = builder.Build(); // app - готовое веб-приложение 
-app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseCors(); 
+app.UseRouting(); // вкл систему маршрутизации
+app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
@@ -42,7 +43,7 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/uploads"
 });
 
-app.UseRouting(); // вкл систему маршрутизации
+
 // ReSharper disable once InvalidXmlDocComment
 
 /**
