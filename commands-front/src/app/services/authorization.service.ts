@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap, map } from 'rxjs';
 import { IUser, ICheckser } from '../models/responce/user-responce.models';
-import { IUpdateUserInfo } from '../models/request/user-request.models';
+import { ICreateUser, IUpdateUserInfo } from '../models/request/user-request.models';
 
 @Injectable()
 export class AuthorizationService {
-  private apiUrl = 'https://localhost:7122/api/User';
+  private apiUrl = 'http://158.160.6.209/api/User';
 
   constructor(private http: HttpClient) {}
 
-  public createUser(userInfo: IUser): Observable<string> {
+  public createUser(userInfo: ICreateUser): Observable<string> {
     return this.http
       .post<{ id: string }>(this.apiUrl, userInfo)
       .pipe(map((res) => res.id));

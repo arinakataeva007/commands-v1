@@ -13,6 +13,7 @@ import { IUser } from 'src/app/models/responce/user-responce.models';
 import { AuthorizationService } from 'src/app/services/authorization.service';
 import { take } from 'rxjs';
 import { StorageService } from 'src/app/services/storage.service';
+import { ICreateUser } from 'src/app/models/request/user-request.models';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -39,8 +40,8 @@ export class SignInModalComponent {
   private cdr = inject(ChangeDetectorRef);
 
   protected async onClickSubmitBtn() {
-    const user: IUser = {
-      userName: this.authForm.get('name')?.value,
+    const user: ICreateUser = {
+      name: this.authForm.get('name')?.value,
       email: this.authForm.get('email')?.value,
       password: this.authForm.get('password')?.value,
     };

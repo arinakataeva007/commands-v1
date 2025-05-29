@@ -6,7 +6,7 @@ import { IProjectResponce } from '../models/responce/project-responce.models';
 
 @Injectable()
 export class ProjectService {
-  private apiUrl = 'https://localhost:7122/api/Project';
+  private apiUrl = 'http://158.160.6.209/api/Project';
   #projId: string = '';
 
   constructor(private http: HttpClient) {}

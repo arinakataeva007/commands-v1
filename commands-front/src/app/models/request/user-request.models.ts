@@ -9,3 +9,8 @@ export interface IUpdateUserInfo {
     projectsId?: string[],
     [key: string]: string | string[] | undefined; 
 }
+export interface ICreateUser {
+    name: string;
+    email:string;
+    password: string;
+}
