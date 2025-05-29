@@ -4,6 +4,7 @@ using Commands_back.Models.interfaces;
 using Commands_back.Services;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 // Добавляем сервисы API и Swagger
@@ -32,6 +33,13 @@ builder.Services.AddCors(options =>
     });
 });
 var app = builder.Build(); // app - готовое веб-приложение 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.WebRootPath, "uploads")),
+    RequestPath = "/uploads"
+});
+
 app.UseHttpsRedirection(); // включение https и маршрутизации
 app.UseCors("AllowFrontend"); 
 app.UseRouting(); // вкл систему маршрутизации

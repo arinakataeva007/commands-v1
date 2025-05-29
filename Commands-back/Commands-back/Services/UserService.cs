@@ -40,4 +40,22 @@ public class UserService(IUserRepository userRepository): IUserService
     {
         return _userRepository.GetUserByEmail(email);
     }
+
+    public string UploadUserImage(Guid id, IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            throw new ArgumentException("Photo is required");
+        }
+
+        // Проверяем тип файла (можно добавить другие проверки)
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+        var fileExtension = Path.GetExtension(file.FileName).ToLower();
+        if (!allowedExtensions.Contains(fileExtension))
+        {
+            throw new ArgumentException("Invalid file type. Only image files are allowed.");
+        }
+
+        return _userRepository.UploadUserImage(id, file);
+    }
 }

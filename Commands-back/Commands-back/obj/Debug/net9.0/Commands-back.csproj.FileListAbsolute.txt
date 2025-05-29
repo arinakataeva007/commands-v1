@@ -78,12 +78,6 @@
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets.build.json
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets.development.json
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets.build.endpoints.json
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets/msbuild.Commands-back.Microsoft.AspNetCore.StaticWebAssets.props
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets/msbuild.Commands-back.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets/msbuild.build.Commands-back.props
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets/msbuild.buildMultiTargeting.Commands-back.props
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.Commands-back.props
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets.pack.json
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/refint/Commands-back.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.pdb
@@ -121,7 +115,6 @@
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/System.Composition.Hosting.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/System.Composition.Runtime.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/System.Composition.TypedParts.dll
-/Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/System.Text.Json.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/cs/Microsoft.CodeAnalysis.resources.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/de/Microsoft.CodeAnalysis.resources.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/es/Microsoft.CodeAnalysis.resources.dll
@@ -195,3 +188,4 @@
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.MvcApplicationPartsAssemblyInfo.cs
 /Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/Commands-back.sourcelink.json
+/Users/arinakataeva/commands-v1/Commands-back/Commands-back/obj/Debug/net9.0/staticwebassets.build.json.cache

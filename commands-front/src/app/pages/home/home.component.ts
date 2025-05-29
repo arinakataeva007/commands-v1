@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       userIconUrl: new FormControl()
     });
   }
-
+  protected photoUrl ='https://localhost:7122/uploads/d71c6f16-b601-441c-91a3-9d8f4d0a49ab__DSC0918.jpg';
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;

@@ -15,6 +15,7 @@ public interface IUserService
     void DeleteUser(Guid id); 
     Guid CheckUserInfo(string email, string password);
     User GetUserByEmail(string email);
+    string UploadUserImage(Guid id, IFormFile file);
 }
 public interface IUserRepository
 {
@@ -31,4 +32,5 @@ public interface IUserRepository
     Guid CheckUserInfo(string email, string passwrd);
     
     User GetUserByEmail(string email);
+    string UploadUserImage(Guid id, IFormFile file);
 }

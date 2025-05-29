@@ -96,5 +96,13 @@ namespace Commands_back.Controllers
 
             return Ok(new { uid = user.UserId });
         }
+
+        [HttpPost("{userId}/photo")]
+        public async Task<IActionResult> UploadPhoto(Guid userId, IFormFile file)
+        {
+            var photoPath = _userService.UploadUserImage(userId, file);
+            return Ok(new { UserIconUrl = photoPath });
+        }
+        
     }
 }
