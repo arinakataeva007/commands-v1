@@ -16,22 +16,11 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<Commands_back.Services.PasswordHasher>();
+builder.Services.AddSingleton<PasswordHasher>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://158.160.6.209:8080")
-            .AllowAnyHeader()
-            .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .AllowCredentials();
-    });
 });
 
 var app = builder.Build();
@@ -40,7 +29,6 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors("AllowFrontend");
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
