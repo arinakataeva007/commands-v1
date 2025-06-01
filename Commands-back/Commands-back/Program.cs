@@ -23,11 +23,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseCors(options =>
+{
+    options.WithOrigins("http://158.160.91.26:8080", "https://158.160.91.26:8080")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+});
 
 app.UseStaticFiles(new StaticFileOptions
 {
