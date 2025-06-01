@@ -35,9 +35,9 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UseHttpsRedirection();
 app.UseCors("AllowFrontend"); 
 app.UseRouting();
-app.UseHttpsRedirection();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
