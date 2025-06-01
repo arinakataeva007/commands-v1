@@ -27,16 +27,18 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy
+        policy.WithOrigins("http://158.160.6.209:8080")
             .AllowAnyOrigin()
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-// app.UseCors("AllowFrontend"); 
+app.UseCors("AllowFrontend"); 
 app.UseRouting();
 app.UseStaticFiles(new StaticFileOptions
 {
@@ -47,19 +49,4 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
-    context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");
-    context.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    
-    if (context.Request.Method == "OPTIONS")
-    {
-        context.Response.StatusCode = 200;
-        return;
-    }
-
-    await next();
-});
-
 app.Run();
