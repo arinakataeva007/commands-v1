@@ -14,7 +14,7 @@ import { IProjectResponce } from '../models/responce/project-responce.models';
 
 @Injectable()
 export class RolesService {
-  #apiUrl = 'http://158.160.6.209:8080/api/Role';
+  #apiUrl = 'http://158.160.91.26/api/Role';
   public roles$$: BehaviorSubject<IRole[]> = new BehaviorSubject<IRole[]>([]);
 
   constructor(private http: HttpClient) {}
