@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
       userIconUrl: new FormControl()
     });
   }
-  protected photoUrl ='http://158.160.6.209';
+  protected photoUrl ='http://158.160.6.209:8080';
   protected textAreaeDesciption  = '';
 
   #photoUrl = '';

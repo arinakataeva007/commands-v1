@@ -6,7 +6,7 @@ import { ICreateUser, IUpdateUserInfo } from '../models/request/user-request.mod
 
 @Injectable()
 export class AuthorizationService {
-  private apiUrl = 'http://158.160.6.209/api/User';
+  private apiUrl = 'http://158.160.6.209:8080/api/User';
 
   constructor(private http: HttpClient) {}
 
