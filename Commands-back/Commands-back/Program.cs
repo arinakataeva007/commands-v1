@@ -28,18 +28,19 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins("http://158.160.6.209:8080")
-            .AllowAnyOrigin()
             .AllowAnyHeader()
             .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-            .AllowAnyMethod()
             .AllowCredentials();
     });
 });
 
 var app = builder.Build();
+
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend"); 
+
 app.UseRouting();
+
+app.UseCors("AllowFrontend");
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
