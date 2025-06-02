@@ -9,8 +9,8 @@ import {
 
 @Injectable()
 export class AuthorizationService {
-  // private apiUrl = 'http://158.160.91.26/api/User';
-  private apiUrl = 'https://localhost:7122/api/User';
+  private apiUrl = 'http://158.160.91.26/api/User';
+  // private apiUrl = 'https://localhost:7122/api/User';
 
   constructor(private http: HttpClient) {}
 

@@ -33,13 +33,9 @@ app.UseRouting();
 
 app.UseCors(options =>
 {
-    // options.WithOrigins("http://158.160.91.26:8080", "https://158.160.91.26:8080")
-    //         .AllowAnyHeader()
-    //         .AllowAnyMethod();
-    options
-        .SetIsOriginAllowed(_ => true)
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+    options.WithOrigins("http://158.160.91.26:8080", "https://158.160.91.26:8080")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
 });
 
 app.UseStaticFiles(new StaticFileOptions
