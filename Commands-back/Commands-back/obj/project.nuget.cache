@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "kp/7nFO/NWw=",
+  "dgSpecHash": "syD2kPQGb24=",
   "success": true,
   "projectFilePath": "/Users/arinakataeva/commands-v1/Commands-back/Commands-back/Commands-back.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.3.0/microsoft.aspnetcore.authentication.abstractions.2.3.0.nupkg.sha512",
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.authentication.cookies/2.3.0/microsoft.aspnetcore.authentication.cookies.2.3.0.nupkg.sha512",
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.authentication.core/2.3.0/microsoft.aspnetcore.authentication.core.2.3.0.nupkg.sha512",
+    "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.cors/2.3.0/microsoft.aspnetcore.cors.2.3.0.nupkg.sha512",
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.cryptography.internal/2.3.0/microsoft.aspnetcore.cryptography.internal.2.3.0.nupkg.sha512",
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/2.3.0/microsoft.aspnetcore.cryptography.keyderivation.2.3.0.nupkg.sha512",
     "/Users/arinakataeva/.nuget/packages/microsoft.aspnetcore.dataprotection/2.3.0/microsoft.aspnetcore.dataprotection.2.3.0.nupkg.sha512",
