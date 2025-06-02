@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, switchMap, map } from 'rxjs';
 import { IUser, ICheckser } from '../models/responce/user-responce.models';
-import { ICreateUser, IUpdateUserInfo } from '../models/request/user-request.models';
+import {
+  ICreateUser,
+  IUpdateUserInfo,
+} from '../models/request/user-request.models';
 
 @Injectable()
 export class AuthorizationService {
-  private apiUrl = 'http://158.160.91.26/api/User';
+  // private apiUrl = 'http://158.160.91.26/api/User';
+  private apiUrl = 'https://localhost:7122/api/User';
 
   constructor(private http: HttpClient) {}
 
@@ -53,7 +57,9 @@ export class AuthorizationService {
     );
   }
 
-  public uploadPhoto(userId:string,fileName: File): Observable<string>{
-    return this.http.post<string>(`${this.apiUrl}/${userId}/photo`, fileName);
+  public uploadPhoto(userId: string, file: File): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<string>(`${this.apiUrl}/${userId}/photo`, formData);
   }
 }

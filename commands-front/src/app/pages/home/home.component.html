@@ -12,13 +12,19 @@
               width="200px"
               height="200px"
             />
-            <input
-              appCheckDownload
-              *ngIf="editMode"
-              class="upload-input"
-              type="file"
-              (fileLoaded)="onFileLoaded($event)"
-            />
+            <div class="photo-upload" *ngIf="editMode">
+              <input
+                appCheckDownload
+                class="upload-input"
+                id="photoInput"
+                type="file"
+                (fileLoaded)="onFileLoaded($event)"
+              />
+              <label for="photoInput" class="photo-label">
+                <img class="photo-icon" src="../../../assets/upload_user.svg" width="35px" height="35px">
+                <span>Загрузить</span>
+              </label>
+            </div>
           </div>
           <div class="profile__info-container">
             <h3 class="profile-title">{{ userInfo.userName }}</h3>
