@@ -72,12 +72,25 @@
                 box-sizing: border-box;
                 border: 2px solid rgb(106, 79, 169);
                 border-radius: 20px;
-                padding: 10px 10px 10px 10px;
+                padding: 10px;
                 background: rgb(255, 255, 255);
                 width: 280px;
                 flex-shrink: 0;
                 max-width: 280px;
                 height: 90%;
+                overflow: auto;
+                &::-webkit-scrollbar {
+                  width: 12px;
+                }
+                &::-webkit-scrollbar-thumb {
+                  border-radius: 99px;
+                  background: rgba(188, 194, 210, 1);
+                  border: 4px solid rgba(255, 255, 255, 1);
+                }
+                &::-webkit-scrollbar-track {
+                  background-color: transparent;
+                  border-style: none;
+                }
                 .info__roles {
                   margin-bottom: 5px;
                   .roles-title {
@@ -172,7 +185,7 @@
                   width: 100px;
                   padding: 12px;
                   cursor: pointer;
-                  background-color: #ffeaea;
+                  background-color: #ffffff;
                   border-radius: 12px;
                   transition: background-color 0.3s;
                   &:hover {
@@ -236,51 +249,51 @@
                     text-transform: uppercase;
                   }
                   &-edit {
-                      height: auto;
-                      width: 100%;
-                      resize: none;
-                      padding: 8px;
-                      border-radius: 8px;
-                      border: 1px solid rgba(150, 155, 168, 1);
-                      align-items: flex-start;
-                      color: rgba(66, 68, 74, 1);
-                      &::placeholder {
-                        color: rgba(150, 155, 168, 1);
-                      }
-                      &:hover {
-                        background: rgba(234, 236, 241, 1);
-                        &::-webkit-scrollbar-thumb {
-                          border: 4px solid rgba(234, 236, 241, 1);
-                        }
-                      }
-                      &:active {
-                        outline: none;
-                        border: 1px solid rgba(49, 194, 226, 1);
-                        background: transparent;
-                        &::-webkit-scrollbar-thumb {
-                          border: 4px solid rgba(255, 255, 255, 1);
-                        }
-                      }
-                      &:focus {
-                        outline: none;
-                        background: transparent;
-                        &::-webkit-scrollbar-thumb {
-                          border: 4px solid rgba(255, 255, 255, 1);
-                        }
-                      }
-                      &::-webkit-scrollbar {
-                        width: 12px;
-                      }
+                    height: auto;
+                    width: 100%;
+                    resize: none;
+                    padding: 8px;
+                    border-radius: 8px;
+                    border: 1px solid rgba(150, 155, 168, 1);
+                    align-items: flex-start;
+                    color: rgba(66, 68, 74, 1);
+                    &::placeholder {
+                      color: rgba(150, 155, 168, 1);
+                    }
+                    &:hover {
+                      background: rgba(234, 236, 241, 1);
                       &::-webkit-scrollbar-thumb {
-                        border-radius: 99px;
-                        background: rgba(188, 194, 210, 1);
-                        border: 4px solid rgba(255, 255, 255, 1);
-                      }
-                      &::-webkit-scrollbar-track {
-                        background-color: transparent;
-                        border-style: none;
+                        border: 4px solid rgba(234, 236, 241, 1);
                       }
                     }
+                    &:active {
+                      outline: none;
+                      border: 1px solid rgba(49, 194, 226, 1);
+                      background: transparent;
+                      &::-webkit-scrollbar-thumb {
+                        border: 4px solid rgba(255, 255, 255, 1);
+                      }
+                    }
+                    &:focus {
+                      outline: none;
+                      background: transparent;
+                      &::-webkit-scrollbar-thumb {
+                        border: 4px solid rgba(255, 255, 255, 1);
+                      }
+                    }
+                    &::-webkit-scrollbar {
+                      width: 12px;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                      border-radius: 99px;
+                      background: rgba(188, 194, 210, 1);
+                      border: 4px solid rgba(255, 255, 255, 1);
+                    }
+                    &::-webkit-scrollbar-track {
+                      background-color: transparent;
+                      border-style: none;
+                    }
+                  }
                 }
               }
             }

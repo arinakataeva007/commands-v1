@@ -12,7 +12,7 @@
               width="200px"
               height="200px"
             />
-            <div class="photo-upload" *ngIf="editMode">
+            <div class="photo-upload" *ngIf="editMode || !userInfo.userIconUrl">
               <input
                 appCheckDownload
                 class="upload-input"

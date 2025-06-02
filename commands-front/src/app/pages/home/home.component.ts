@@ -7,13 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  forkJoin,
-  
-  switchMap,
-  take,
-} from 'rxjs';
+import { BehaviorSubject, forkJoin, switchMap, take } from 'rxjs';
 import { IProjectRequest } from 'src/app/models/request/project-request.models';
 import { IUpdateUserInfo } from 'src/app/models/request/user-request.models';
 import { IProjectResponce } from 'src/app/models/responce/project-responce.models';
@@ -38,12 +32,12 @@ export class HomeComponent implements OnInit {
   ) {
     this.editingForm = new FormGroup({
       description: new FormControl(),
-      userIconUrl: new FormControl()
+      userIconUrl: new FormControl(),
     });
   }
   // protected photoUrl ='http://158.160.91.26';
-  protected photoUrl ='https://localhost:7122';
-  protected textAreaeDesciption  = '';
+  protected photoUrl = 'https://localhost:7122';
+  protected textAreaeDesciption = '';
 
   #photoUrl = '';
   public ngOnInit(): void {
@@ -54,7 +48,8 @@ export class HomeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.userInfo = data as IUser;
-          this.photoUrl = this.photoUrl  + this.userInfo.userIconUrl;
+          this.photoUrl = this.photoUrl + this.userInfo.userIconUrl;
+          this.textAreaeDesciption = this.userInfo.description || '';
           console.log(this.photoUrl);
           if (data.projectsId && data.projectsId.length > 0) {
             data.projectsId.forEach((projId) => {
@@ -101,35 +96,46 @@ export class HomeComponent implements OnInit {
     this.addingProject = false;
   }
 
-  protected async goToProject(projId:string){
-    await this.router.navigate(['/projectPage', projId])
+  protected async goToProject(projId: string) {
+    await this.router.navigate(['/projectPage', projId]);
   }
 
-  protected endEdit(){
+  protected endEdit() {
     this.editMode = false;
     const updateFields: IUpdateUserInfo = {
       userId: this.userInfo.userId!,
       description: this.textAreaeDesciption,
       userIconUrl: this.#photoUrl,
-      projectsId: this.userInfo.projectsId
-    }
+      projectsId: this.userInfo.projectsId,
+    };
     this.authService.updateUserInfo(updateFields).subscribe({
       next: (response: IUser) => {
-          this.userInfo = response;
-          this.updateProjects(response.projectsId);
-          this.cdr.detectChanges();
-        },
-        error: (err) => {
-          console.error('Error occurred:', err.error.errors);
-        },
+        this.userInfo = response;
+        this.updateProjects(response.projectsId);
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error occurred:', err.error.errors);
+      },
     });
   }
 
-  protected onFileLoaded(event: File){
-    this.authService.uploadPhoto(this.userInfo.userId!, event).pipe(take(1)).subscribe(urlPhoto => {
-      this.#photoUrl = urlPhoto;
-      this.cdr.detectChanges();
-    });
+  protected onFileLoaded(event: File) {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
+    if (!allowedTypes.includes(event.type)) {
+      console.warn(
+        'Неверный формат файла. Допустимы только изображения JPG, PNG, GIF, WEBP.'
+      );
+      return;
+    }
+    this.authService
+      .uploadPhoto(this.userInfo.userId!, event)
+      .pipe(take(1))
+      .subscribe((urlPhoto) => {
+        this.#photoUrl = urlPhoto;
+        this.cdr.detectChanges();
+      });
   }
 
   protected saveProject(event: IProjectRequest): void {
