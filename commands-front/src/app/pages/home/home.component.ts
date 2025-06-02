@@ -6,13 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   BehaviorSubject,
   forkJoin,
-  map,
-  Observable,
-  of,
+  
   switchMap,
   take,
 } from 'rxjs';
@@ -112,15 +110,25 @@ export class HomeComponent implements OnInit {
     const updateFields: IUpdateUserInfo = {
       userId: this.userInfo.userId!,
       description: this.textAreaeDesciption,
-      userIconUrl: this.#photoUrl
+      userIconUrl: this.#photoUrl,
+      projectsId: this.userInfo.projectsId
     }
-    console.log(updateFields);
+    this.authService.updateUserInfo(updateFields).subscribe({
+      next: (response: IUser) => {
+          this.userInfo = response;
+          this.updateProjects(response.projectsId);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error occurred:', err.error.errors);
+        },
+    });
   }
 
   protected onFileLoaded(event: File){
-    console.log(event, 'file');
     this.authService.uploadPhoto(this.userInfo.userId!, event).pipe(take(1)).subscribe(urlPhoto => {
       this.#photoUrl = urlPhoto;
+      this.cdr.detectChanges();
     });
   }
 
@@ -167,7 +175,6 @@ export class HomeComponent implements OnInit {
       )
       .subscribe({
         next: (response: IUser) => {
-          console.log('User info updated successfully', response);
           this.userInfo = response;
           this.updateProjects(response.projectsId);
         },
@@ -175,10 +182,6 @@ export class HomeComponent implements OnInit {
           console.error('Error occurred:', err.error.errors);
         },
       });
-  }
-
-  protected onTextAreaInput(){
-    console.log(this.textAreaeDesciption);
   }
 
   private updateProjects(projectsId: string[] | undefined) {

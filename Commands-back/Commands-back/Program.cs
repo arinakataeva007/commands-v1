@@ -33,9 +33,13 @@ app.UseRouting();
 
 app.UseCors(options =>
 {
-    options.WithOrigins("http://158.160.91.26:8080", "https://158.160.91.26:8080", "http://localhost:4200", "https://localhost:4200")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+    // options.WithOrigins("http://158.160.91.26:8080", "https://158.160.91.26:8080")
+    //         .AllowAnyHeader()
+    //         .AllowAnyMethod();
+    options
+        .SetIsOriginAllowed(_ => true)
+        .AllowAnyHeader()
+        .AllowAnyMethod();
 });
 
 app.UseStaticFiles(new StaticFileOptions
