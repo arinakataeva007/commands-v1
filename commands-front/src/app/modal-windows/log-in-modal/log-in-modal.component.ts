@@ -19,8 +19,8 @@ export class LogInModalComponent {
     private localStorage: StorageService
   ) {
     this.authForm = new FormGroup({
-      email: new FormControl('kataevaarinka@gmail.com', [Validators.required]),
-      password: new FormControl('arinka785', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
