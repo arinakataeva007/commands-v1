@@ -35,12 +35,13 @@ export class HomeComponent implements OnInit {
       userIconUrl: new FormControl(),
     });
   }
-  protected textAreaeDesciption = '';
 
-  #photoUrl = '';
   public ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.userId = params.get('id_user')!;
+      if(this.userId !== localStorage.getItem('token')){
+        this.anotherUser = true;
+      }
       this.authService
         .getUser(this.userId)
         .pipe(take(1))
@@ -64,7 +65,6 @@ export class HomeComponent implements OnInit {
                       this.cdr.markForCheck();
                     });
                   }
-
                   this.userProjects$$.next([...current, project]);
                 });
             });
@@ -72,7 +72,8 @@ export class HomeComponent implements OnInit {
         });
     });
   }
-
+  
+  protected textAreaeDesciption = '';
   protected userId!: string;
   protected userInfo: IUser = {} as IUser;
   private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
@@ -80,7 +81,9 @@ export class HomeComponent implements OnInit {
   protected projectRolesMap: Record<string, string[]> = {};
   protected addingProject = false;
   protected editMode = false;
+  protected anotherUser = false;
 
+  #photoUrl = '';
   private editingForm: FormGroup;
   private cdr = inject(ChangeDetectorRef);
 

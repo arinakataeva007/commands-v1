@@ -1,0 +1,22 @@
+<section class="project-card" (click)="goToProject()">
+    <div class="project-card__info">
+        <div class="project-description">
+            <div class="project-description__up-container">
+                <h3 class="title">{{project.projectName}}</h3>
+                <div class="description">{{project.projectDescription}}</div>
+            </div>
+            <div class="project-description__down-container">
+                <h3 class="title">Роли:</h3>
+                <ul class="roles-list">
+                  <li
+                    *ngFor="let role of projectRolesMap[project.id] || []"
+                    class="role-item"
+                  >
+                    {{ role }}
+                  </li>
+                </ul>
+                <div class="description">Стек: </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -15,6 +15,8 @@ import { ProjectPageComponent } from './pages/project-page/project-page.componen
 import { DropdownMultiSelectComponent } from 'src/app/components/UI/dropdown/dropdown.component';
 import { CheckDownloadDirective } from './pages/home/filedirective/check-download.directive';
 import { ProjectsPageComponent } from './pages/projects-page/projects-page.component';
+import { ProjectcardComponent } from "./components/projectcard/projectcard.component";
+import { EarlyWatchingComponent } from "./components/early-watching/early-watching.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,11 +32,13 @@ import { ProjectsPageComponent } from './pages/projects-page/projects-page.compo
     BrowserModule,
     AppRoutingModule,
     AuthorizationModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     NavigationComponent,
     FunctionalModule,
-  ],
+    ProjectcardComponent,
+    EarlyWatchingComponent
+],
   providers: [ProjectService, RolesService],
   exports:[],
   bootstrap: [AppComponent]

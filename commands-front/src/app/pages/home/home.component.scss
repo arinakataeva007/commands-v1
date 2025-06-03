@@ -17,27 +17,15 @@
       display: flex;
       justify-content: space-between;
       width: 95%;
-      .early-look {
-        width: 30%;
-        border-radius: 40px;
-        box-shadow: 0px 0px 50px 0px rgba(31, 0, 97, 0.25);
-        background: rgb(255, 255, 255);
-        &__title {
-          color: rgb(31, 0, 97);
-          font-family: Lato;
-          font-size: 20px;
-          font-weight: 700;
-          line-height: 24px;
-          text-align: center;
-          text-transform: uppercase;
-        }
-      }
       .main-center__left {
         width: 50%;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         gap: 50px;
+        app-early-watching {
+          width: 30%;
+        }
         .section-back {
           border-radius: 40px;
           box-shadow: 0px 0px 50px 0px rgba(31, 0, 97, 0.25);
@@ -333,7 +321,6 @@
     align-items: center;
     justify-content: center;
   }
-
   .backdrop {
     position: absolute;
     top: 0;

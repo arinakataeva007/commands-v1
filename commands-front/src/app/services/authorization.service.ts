@@ -17,7 +17,10 @@ export class AuthorizationService {
   public createUser(userInfo: ICreateUser): Observable<string> {
     return this.http
       .post<{ id: string }>(this.apiUrl, userInfo)
-      .pipe(map((res) => res.id));
+      .pipe(map((res) => {
+        localStorage.setItem('token', res.id);
+        return res.id
+      }));
   }
 
   public checkUser(userInfo: ICheckser): Observable<{ uid: string }> {

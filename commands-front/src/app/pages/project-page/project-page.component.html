@@ -1,9 +1,9 @@
-<app-navigation [inUser]="true" [userIdFromProject]="project.author" ></app-navigation>
+<app-navigation [inUser]="true"></app-navigation>
 <main class="project-page">
     <section class="project-page__article">
         <div class="article-info">
             <div class="article-info__title">{{project.projectName}}</div>
-            <p class="article-info__author">Автор: {{authorName}}</p>
+            <a [routerLink]="['/homepage', project.author]" class="article-info__author">Автор: {{authorName}}</a>
         </div>
         <div class="article-info-footer">
             <button class="article-info-footer__btn">откликнуться</button>

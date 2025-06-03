@@ -1,0 +1,7 @@
+<app-navigation [fromUser]="true"></app-navigation>
+<main class="projects__main">
+  <div class="projects-main">
+    <app-projectcard *ngFor="let proj of projets$ | async" [project]="proj"></app-projectcard>
+  </div>
+  <app-early-watching></app-early-watching>
+</main>
