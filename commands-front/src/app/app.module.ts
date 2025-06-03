@@ -14,6 +14,7 @@ import { RolesService } from './services/roles.service.ts.service';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
 import { DropdownMultiSelectComponent } from 'src/app/components/UI/dropdown/dropdown.component';
 import { CheckDownloadDirective } from './pages/home/filedirective/check-download.directive';
+import { ProjectsPageComponent } from './pages/projects-page/projects-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { CheckDownloadDirective } from './pages/home/filedirective/check-downloa
     AddProjectModalComponent,
     ProjectPageComponent,
     DropdownMultiSelectComponent,
-    CheckDownloadDirective
+    CheckDownloadDirective,
+    ProjectsPageComponent
   ],
   imports: [
     BrowserModule,

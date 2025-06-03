@@ -9,8 +9,8 @@ import {
 
 @Injectable()
 export class AuthorizationService {
-  private apiUrl = 'http://158.160.91.26/api/User';
-  // private apiUrl = 'https://localhost:7122/api/User';
+  // private apiUrl = 'http://158.160.91.26/api/User';
+  private apiUrl = 'https://localhost:7122/api/User';
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +21,14 @@ export class AuthorizationService {
   }
 
   public checkUser(userInfo: ICheckser): Observable<{ uid: string }> {
-    return this.http.post<{ uid: string }>(`${this.apiUrl}/login`, userInfo);
+    return this.http
+      .post<{ uid: string }>(`${this.apiUrl}/login`, userInfo)
+      .pipe(
+        map((response) => {
+          localStorage.setItem('token', response.uid);
+          return response;
+        })
+      );
   }
 
   public getUser(userId: string): Observable<IUser> {
@@ -57,9 +64,23 @@ export class AuthorizationService {
     );
   }
 
-  public uploadPhoto(userId: string, file: File): Observable<string> {
+  public uploadPhoto(
+    userId: string,
+    file: File
+  ): Observable<{ userIconUrl: string }> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<string>(`${this.apiUrl}/${userId}/photo`, formData);
+    return this.http.post<{ userIconUrl: string }>(
+      `${this.apiUrl}/${userId}/photo`,
+      formData
+    );
+  }
+
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+  
+  public logout(): void {
+    localStorage.removeItem('token');
   }
 }

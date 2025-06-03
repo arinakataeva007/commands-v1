@@ -35,8 +35,6 @@ export class HomeComponent implements OnInit {
       userIconUrl: new FormControl(),
     });
   }
-  protected photoUrl ='http://158.160.91.26';
-  // protected photoUrl = 'https://localhost:7122';
   protected textAreaeDesciption = '';
 
   #photoUrl = '';
@@ -48,9 +46,7 @@ export class HomeComponent implements OnInit {
         .pipe(take(1))
         .subscribe((data) => {
           this.userInfo = data as IUser;
-          this.photoUrl = this.photoUrl + this.userInfo.userIconUrl;
           this.textAreaeDesciption = this.userInfo.description || '';
-          console.log(this.photoUrl);
           if (data.projectsId && data.projectsId.length > 0) {
             data.projectsId.forEach((projId) => {
               this.projectService
@@ -78,7 +74,7 @@ export class HomeComponent implements OnInit {
   }
 
   protected userId!: string;
-  protected userInfo!: IUser;
+  protected userInfo: IUser = {} as IUser;
   private userProjects$$ = new BehaviorSubject<IProjectResponce[]>([]);
   protected userProjects$ = this.userProjects$$.asObservable();
   protected projectRolesMap: Record<string, string[]> = {};
@@ -133,7 +129,7 @@ export class HomeComponent implements OnInit {
       .uploadPhoto(this.userInfo.userId!, event)
       .pipe(take(1))
       .subscribe((urlPhoto) => {
-        this.#photoUrl = urlPhoto;
+        this.#photoUrl = 'https://localhost:7122' + urlPhoto.userIconUrl;;
         this.cdr.detectChanges();
       });
   }

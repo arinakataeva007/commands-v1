@@ -6,8 +6,8 @@
         <div class="left-container-profile">
           <div class="profile_img-container">
             <img
-              *ngIf="!!userInfo.userIconUrl"
-              [src]="photoUrl"
+              *ngIf="userInfo && userInfo.userIconUrl"
+              [src]="userInfo.userIconUrl"
               class="profile__img"
               width="200px"
               height="200px"

@@ -34,7 +34,7 @@ export class AddProjectModalComponent {
       name: new FormControl('', [Validators.required]),
       descreption: new FormControl(''),
       authorRole: new FormControl('Выберите свою роль', [Validators.required]),
-      otherRoles: new FormControl('Выберите необходимые роли'),
+      otherRoles: new FormControl('Выберите необходимые роли', [Validators.required]),
     });
     
   }

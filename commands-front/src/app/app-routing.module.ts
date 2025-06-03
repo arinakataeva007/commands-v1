@@ -7,6 +7,8 @@ import { SignInModalComponent } from './modal-windows/sign-in-modal/sign-in-moda
 import { HomeComponent } from './pages/home/home.component';
 import { FunctionalPageComponent } from './pages/functional/functional-page/functional-page.component';
 import { ProjectPageComponent } from './pages/project-page/project-page.component';
+import { ProjectsPageComponent } from './pages/projects-page/projects-page.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -20,13 +22,16 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'homepage/:id_user', component: HomeComponent
+    path: 'homepage/:id_user', component: HomeComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'functionalPage/:id_user', component:FunctionalPageComponent
+    path: 'functionalPage/:id_user', component:FunctionalPageComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'projectPage/:id_project', component: ProjectPageComponent
+    path: 'projectPage/:id_project', component: ProjectPageComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects', component: ProjectsPageComponent, canActivate: [AuthGuard]
   }
 ];
 
