@@ -132,7 +132,8 @@ export class HomeComponent implements OnInit {
       .uploadPhoto(this.userInfo.userId!, event)
       .pipe(take(1))
       .subscribe((urlPhoto) => {
-        this.#photoUrl = 'http://158.160.91.26' + urlPhoto.userIconUrl;;
+        this.#photoUrl = 'http://158.160.91.26' + urlPhoto.userIconUrl;
+        this.userInfo.userIconUrl = this.#photoUrl;
         this.cdr.detectChanges();
       });
   }
