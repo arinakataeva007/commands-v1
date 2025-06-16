@@ -37,4 +37,5 @@ export class FunctionalPageComponent {
   private projects$$ = new BehaviorSubject<IProjectResponce[]>([]);
   protected projects$ = this.projects$$.asObservable();
   protected projectRolesMap: Record<string, string[]> = {};
+  protected addingProject = false;
 }

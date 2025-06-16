@@ -8,7 +8,7 @@
 </div>
 <div class="footer btn-container">
   <button class="navigation__btn"><img src="../../../assets/nav_search.svg" width="35px" height="35px" /></button>
-  <button class="navigation__btn" (click)="onAddClick.emit($event)"><img src="../../../assets/nav_add.svg" width="35px" height="35px" /></button>
+  <button *ngIf="withAddProjectBtn" class="navigation__btn" (click)="onAddClick.emit($event)"><img src="../../../assets/nav_add.svg" width="35px" height="35px" /></button>
   <button *ngIf="fromUser && !inUser" class="navigation__btn" (click)="goToMainPage()"><img src="../../../assets/nav_home.svg" width="35px" height="35px" /></button>
   <button *ngIf="inUser && !fromUser" class="navigation__btn" (click)="goToUserPage()"><img src="../../../assets/ser_nav.svg" width="35px" height="35px" /></button>
 </div>

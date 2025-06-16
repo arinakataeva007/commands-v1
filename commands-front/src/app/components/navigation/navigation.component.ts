@@ -13,6 +13,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class NavigationComponent implements OnInit {
   @Input() fromUser = false;
   @Input() inUser = false;
+  @Input() withAddProjectBtn = false;
   @Input() userIdFromProject = '';
   @Output() onAddClick = new EventEmitter();
 
